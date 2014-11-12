@@ -155,14 +155,13 @@ def makedrinks():
     # This won't contain the secret drinks.
     # Right now the drinks aren't sorted.
     # The current format of the output is:
+    # \drink name
+    # \til [price]
+    # \med %
+    #     [amount]    & [kind] \og
+    #                 & [kind] \og
+    #     \serveret i et [other] med is
 
-    # \section*{name}
-    # \begin{itemize}
-    # 	\item spirits
-    # 	\item sodas
-    # 	\item others
-    # 	\item price
-    # \end{itemize}
 
     # Write to .tex file. Loop over the number of drinks.
     with codecs.open('barcard.tex', 'w', encoding=OUTPUT_ENCODING) as barcard:
