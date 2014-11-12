@@ -28,8 +28,8 @@ drinksfilename = 'drinks.txt'
 
 def readdrinks(drinksfile):
     # Initialize dictories
-    drinksdict = collections.OrderedDict()
-    secretdrinkdict = collections.OrderedDict()
+    drinks = []
+    secretdrinks = []
     currentdrinkdict = None
 
     # Read the file line by line
@@ -37,43 +37,39 @@ def readdrinks(drinksfile):
 
         # Get the current drink
         if line.startswith('='):
-            currentdrinkdict = collections.OrderedDict()
+            currentdrinkdict = {
+                'soda': [],
+                'spirit': [],
+                'other': [],
+            }
 
             # Get name of drink without any newline
-            currentdrinkname = line.strip('= \n')
+            name = line.strip('= \n')
 
             # Sort into secret and normal drinks
-            if currentdrinkname.startswith('?'):
-                currentdrinkname = currentdrinkname.strip('? ')
-                secretdrinkdict[currentdrinkname] = currentdrinkdict
+            if name.startswith('?'):
+                name = name.strip('? ')
+                currentdrinkdict['name'] = name
+                secretdrinks.append(currentdrinkdict)
             else:
-                drinksdict[currentdrinkname] = currentdrinkdict
+                currentdrinkdict['name'] = name
+                drinks.append(currentdrinkdict)
 
         # Soda
         elif line.startswith('--'):
             currentsoda = line.strip(' -\n')
 
-            # Handle multiple soda entries
-            if 'soda' in currentdrinkdict:
-                currentdrinkdict['soda'].append(currentsoda)
-            else:
-                currentdrinkdict['soda'] = [currentsoda]
+            currentdrinkdict['soda'].append(currentsoda)
 
         # Spirit
         elif line.startswith('-'):
             currentspirit = line.strip(' -\n')
-            if 'spirit' in currentdrinkdict:
-                currentdrinkdict['spirit'].append(currentspirit)
-            else:
-                currentdrinkdict['spirit'] = [currentspirit]
+            currentdrinkdict['spirit'].append(currentspirit)
 
         # Other
         elif line.startswith('!'):
             currentother = line.strip(' !\n')
-            if 'other' in currentdrinkdict:
-                currentdrinkdict['other'].append(currentother)
-            else:
-                currentdrinkdict['other'] = [currentother]
+            currentdrinkdict['other'].append(currentother)
 
         # Price
         elif line.startswith('$'):
@@ -85,12 +81,12 @@ def readdrinks(drinksfile):
         else:
             pass
 
-    return drinksdict, secretdrinkdict
+    return drinks, secretdrinks
 
 
-def generatebarcard(drinksdict):
-    for drink in drinksdict:
-        currentingredients = drinksdict[drink]
+def generatebarcard(drinks):
+    for currentingredients in drinks:
+        drink = currentingredients['name']
         yield r'\drik %s' % drink
         yield r'\til %s' % currentingredients['price']
 
@@ -114,15 +110,15 @@ def generatebarcard(drinksdict):
             yield '\\serveret I et %s med is\n' % other
 
 
-def generatemixingcard(drinksdict_sorted, drinksdict):
+def generatemixingcard(drinks):
     # Do TeX-stuff
     yield '\\begin{tabular}{lllll}'
     yield '\\toprule Navn & Sprut & Sodavand & Severing & Pris \\\\'
     yield '\midrule'
 
     # Loop over all drinks
-    for drinknumber, drink in enumerate(drinksdict_sorted):
-        currentingredients = drinksdict[drink]
+    for drinknumber, currentingredients in enumerate(drinks):
+        drink = currentingredients['name']
         mixingcardformat = (
             u'{color}{drink} & {ingredients} & '
             u'{soda} & {other} & {price} kr\\\\ \n'
@@ -148,7 +144,7 @@ def generatemixingcard(drinksdict_sorted, drinksdict):
 #####################################
 def makedrinks():
     with codecs.open(drinksfilename, 'r', encoding=ENCODING) as drinksfile:
-        drinksdict, secretdrinkdict = readdrinks(drinksfile)
+        drinks, secretdrinks = readdrinks(drinksfile)
 
     # Now we make the barcards ("drinkskort").
     # This won't contain the secret drinks.
@@ -165,17 +161,17 @@ def makedrinks():
 
     # Write to .tex file. Loop over the number of drinks.
     with codecs.open('barcard.tex', 'w', encoding=ENCODING) as barcard:
-        for line in generatebarcard(drinksdict):
+        for line in generatebarcard(drinks):
             barcard.write('%s\n' % line)
 
     # Combine and sort the normal and secret drinks.
-    drinksdict = collections.OrderedDict(
-        list(drinksdict.items()) + list(secretdrinkdict.items()))
-    drinksdict_sorted = sorted(drinksdict)
+    drinks_sorted = sorted(
+        drinks + secretdrinks,
+        key=lambda drink: drink['name'])
 
     # Open file for the mixing card ("blandeliste")
     with codecs.open('mixing.tex', 'w', encoding=ENCODING) as mixingcard:
-        for line in generatemixingcard(drinksdict_sorted, drinksdict):
+        for line in generatemixingcard(drinks_sorted):
             mixingcard.write('%s\n' % line)
 
     # Wuhu! Done!
