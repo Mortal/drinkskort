@@ -44,7 +44,7 @@ def readdrinks(drinksfile):
             }
 
             # Get name of drink without any newline
-            name = line.strip('= \n')
+            name = line[1:].strip()
 
             # Sort into secret and normal drinks
             if name.startswith('?'):
@@ -57,23 +57,22 @@ def readdrinks(drinksfile):
 
         # Soda
         elif line.startswith('--'):
-            currentsoda = line.strip(' -\n')
-
+            currentsoda = line[2:].strip()
             currentdrinkdict['soda'].append(currentsoda)
 
         # Spirit
         elif line.startswith('-'):
-            currentspirit = line.strip(' -\n')
+            currentspirit = line[1:].strip()
             currentdrinkdict['spirit'].append(currentspirit)
 
         # Other
         elif line.startswith('!'):
-            currentother = line.strip(' !\n')
+            currentother = line[1:].strip()
             currentdrinkdict['other'].append(currentother)
 
         # Price
         elif line.startswith('$'):
-            currentprice = line.strip(' $\n')
+            currentprice = line[1:].strip()
             currentdrinkdict['price'] = currentprice
 
         # This makes sure every other line is ignored.
