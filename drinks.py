@@ -12,6 +12,7 @@
 # Modules #
 ###########
 import codecs
+import subprocess
 import collections
 
 
@@ -22,70 +23,73 @@ import collections
 # Encoding is always utf8!
 ENCODING = 'utf8'
 
+# ... except the input to plain TeX
+OUTPUT_ENCODING = 'latin1'
+
 # Name of drinks file defining drinks. Default 'drinks.txt'
 drinksfilename = 'drinks.txt'
 
 
 def readdrinks(drinksfile):
-    # Initialize dictories
     drinks = []
-    secretdrinks = []
-    currentdrinkdict = None
 
     # Read the file line by line
     for line in drinksfile:
-
         # Get the current drink
         if line.startswith('='):
-            currentdrinkdict = {
-                'soda': [],
-                'spirit': [],
-                'other': [],
-            }
-
-            # Get name of drink without any newline
-            name = line.strip('= \n')
+            name = line[1:].strip()
 
             # Sort into secret and normal drinks
             if name.startswith('?'):
-                name = name.strip('? ')
-                currentdrinkdict['name'] = name
-                secretdrinks.append(currentdrinkdict)
+                secret = True
+                name = name[1:].strip()
             else:
-                currentdrinkdict['name'] = name
-                drinks.append(currentdrinkdict)
+                secret = False
+
+            currentdrinkdict = {
+                'name': name,
+                'soda': [],
+                'spirit': [],
+                'other': [],
+                'price': '',
+                'secret': secret,
+            }
+            drinks.append(currentdrinkdict)
 
         # Soda
         elif line.startswith('--'):
-            currentsoda = line.strip(' -\n')
-
+            currentsoda = line[2:].strip()
             currentdrinkdict['soda'].append(currentsoda)
 
         # Spirit
         elif line.startswith('-'):
-            currentspirit = line.strip(' -\n')
+            currentspirit = line[1:].strip()
             currentdrinkdict['spirit'].append(currentspirit)
 
         # Other
         elif line.startswith('!'):
-            currentother = line.strip(' !\n')
+            currentother = line[1:].strip()
             currentdrinkdict['other'].append(currentother)
 
         # Price
         elif line.startswith('$'):
-            currentprice = line.strip(' $\n')
+            currentprice = line[1:].strip()
             currentdrinkdict['price'] = currentprice
 
-        # This makes sure every other line is ignored.
+        # Unrecognized line.
         # Maybe we should print a warning (with line number)?
         else:
             pass
 
-    return drinks, secretdrinks
+    return drinks
 
 
 def generatebarcard(drinks):
     for currentingredients in drinks:
+        if currentingredients['secret']:
+            # Skip secret drinks
+            continue
+
         drink = currentingredients['name']
         yield r'\drik %s' % drink
         yield r'\til %s' % currentingredients['price']
@@ -104,17 +108,18 @@ def generatebarcard(drinks):
             yield r'%s& %s\og' % (amount, spirit)
 
         for soda in currentingredients['soda']:
-            yield '\t\t& %s\\og' % soda
+            yield r'& %s\og' % soda
 
         for other in currentingredients['other']:
-            yield '\\serveret I et %s med is\n' % other
+            yield '\t\t' + r'\serveret I et %s med is' % other
+            yield ''
 
 
 def generatemixingcard(drinks):
     # Do TeX-stuff
-    yield '\\begin{tabular}{lllll}'
-    yield '\\toprule Navn & Sprut & Sodavand & Severing & Pris \\\\'
-    yield '\midrule'
+    yield r'\begin{tabular}{lllll}'
+    yield r'\toprule Navn & Sprut & Sodavand & Severing & Pris \\'
+    yield r'\midrule'
 
     # Loop over all drinks
     for drinknumber, currentingredients in enumerate(drinks):
@@ -135,8 +140,8 @@ def generatemixingcard(drinks):
 
         yield mixingcardline
 
-    yield '\\bottomrule'
-    yield '\end{tabular}'
+    yield r'\bottomrule'
+    yield r'\end{tabular}'
 
 
 #####################################
@@ -144,7 +149,7 @@ def generatemixingcard(drinks):
 #####################################
 def makedrinks():
     with codecs.open(drinksfilename, 'r', encoding=ENCODING) as drinksfile:
-        drinks, secretdrinks = readdrinks(drinksfile)
+        drinks = readdrinks(drinksfile)
 
     # Now we make the barcards ("drinkskort").
     # This won't contain the secret drinks.
@@ -160,20 +165,26 @@ def makedrinks():
     # \end{itemize}
 
     # Write to .tex file. Loop over the number of drinks.
-    with codecs.open('barcard.tex', 'w', encoding=ENCODING) as barcard:
+    with codecs.open('barcard.tex', 'w', encoding=OUTPUT_ENCODING) as barcard:
         for line in generatebarcard(drinks):
             barcard.write('%s\n' % line)
 
-    # Combine and sort the normal and secret drinks.
-    drinks_sorted = sorted(
-        drinks + secretdrinks,
-        key=lambda drink: drink['name'])
+    # Sort all drinks by name
+    drinks_sorted = sorted(drinks, key=lambda drink: drink['name'])
 
     # Open file for the mixing card ("blandeliste")
     with codecs.open('mixing.tex', 'w', encoding=ENCODING) as mixingcard:
         for line in generatemixingcard(drinks_sorted):
             mixingcard.write('%s\n' % line)
 
+    subprocess.check_call(
+        'tex barcardmain.tex'.split())
+    subprocess.check_call(
+        'dvips -t landscape -Ppk barcardmain.dvi -o'.split())
+    subprocess.check_call(
+        'ps2pdf -sPAPERSIZE=a4 barcardmain.ps barcardmain.pdf'.split())
+    subprocess.check_call(
+        'latexmk -pdf mixingcardmain.tex'.split())
     # Wuhu! Done!
 
 
