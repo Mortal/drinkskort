@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-11-12 13:50:02 moss>
+# Time-stamp: <2014-11-12 13:53:29 moss>
 
 ######################################
 # Scipt for handling drinks          #
@@ -157,5 +157,6 @@ def makedrinks():
     # Wuhu! Done!
 
 
+# Run the function if file is called directly
 if __name__ == '__main__':
     makedrinks()
