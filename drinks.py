@@ -108,17 +108,17 @@ def generatebarcard(drinks):
             yield r'%s& %s\og' % (amount, spirit)
 
         for soda in currentingredients['soda']:
-            yield '\t\t& %s\\og' % soda
+            yield r'& %s\\og' % soda
 
         for other in currentingredients['other']:
-            yield '\\serveret I et %s med is\n' % other
+            yield r'\serveret I et %s med is' % other
 
 
 def generatemixingcard(drinks):
     # Do TeX-stuff
-    yield '\\begin{tabular}{lllll}'
-    yield '\\toprule Navn & Sprut & Sodavand & Severing & Pris \\\\'
-    yield '\midrule'
+    yield r'\begin{tabular}{lllll}'
+    yield r'\toprule Navn & Sprut & Sodavand & Severing & Pris \\'
+    yield r'\midrule'
 
     # Loop over all drinks
     for drinknumber, currentingredients in enumerate(drinks):
@@ -139,8 +139,8 @@ def generatemixingcard(drinks):
 
         yield mixingcardline
 
-    yield '\\bottomrule'
-    yield '\end{tabular}'
+    yield r'\bottomrule'
+    yield r'\end{tabular}'
 
 
 #####################################
