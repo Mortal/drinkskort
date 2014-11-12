@@ -125,11 +125,11 @@ def makedrinks():
                 amount, spirit = spirit.split('-')
                 amount = amount.strip() + '\t'
                 spirit = spirit.strip()
-            drinkline += '' + amount + '& ' + spirit + '\og \n'
+            drinkline += '%s& %s\\og\n' % (amount, spirit)
         for soda in currentingredients['soda']:
-            drinkline += '\t\t& ' + soda + '\og \n'
+            drinkline += '\t\t& %s\\og\n' % soda
         for other in currentingredients['other']:
-            drinkline += '\serveret I et ' + other + ' med is\n\n'
+            drinkline += '\\serveret I et %s med is\n\n' % other
         barcard.writelines(drinkline)
     barcard.close()
 
