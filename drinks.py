@@ -91,10 +91,12 @@ def readdrinks(drinksfile):
 def generatebarcard(drinksdict):
     for drink in drinksdict:
         currentingredients = drinksdict[drink]
-        yield '\\drik %s' % drink
-        yield '\\til %s' % currentingredients['price']
+        yield r'\drik %s' % drink
+        yield r'\til %s' % currentingredients['price']
+
         # Write every other thing:
-        yield '\\med %'
+        yield r'\med %'
+
         for spirit in currentingredients['spirit']:
             amount = '\t'
             if '-' in spirit:
@@ -103,9 +105,11 @@ def generatebarcard(drinksdict):
                 amount, spirit = spirit.split('-')
                 amount = amount.strip() + '\t'
                 spirit = spirit.strip()
-            yield '%s& %s\\og' % (amount, spirit)
+            yield r'%s& %s\og' % (amount, spirit)
+
         for soda in currentingredients['soda']:
             yield '\t\t& %s\\og' % soda
+
         for other in currentingredients['other']:
             yield '\\serveret I et %s med is\n' % other
 
