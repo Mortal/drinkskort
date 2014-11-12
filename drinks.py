@@ -24,7 +24,8 @@ import collections
 ENCODING = 'utf8'
 
 # ... except the input to plain TeX
-OUTPUT_ENCODING = 'latin1'
+# Wich is why we use xetex :-)
+OUTPUT_ENCODING = 'utf8'
 
 # Name of drinks file defining drinks. Default 'drinks.txt'
 drinksfilename = 'drinks.txt'
@@ -98,17 +99,17 @@ def generatebarcard(drinks):
         yield r'\med %'
 
         for spirit in currentingredients['spirit']:
-            amount = '\t'
+            amount = '\t\t'
             if '-' in spirit:
                 # Split returns an array of strings.
                 # amount is the first of these
                 amount, spirit = spirit.split('-')
                 amount = amount.strip() + '\t'
                 spirit = spirit.strip()
-            yield r'%s& %s\og' % (amount, spirit)
+            yield r'%s& %s \og' % (amount, spirit)
 
         for soda in currentingredients['soda']:
-            yield r'& %s\og' % soda
+            yield '\t\t& %s \og' % soda
 
         for other in currentingredients['other']:
             yield '\t\t' + r'\serveret I et %s med is' % other
@@ -155,14 +156,14 @@ def makedrinks():
     # This won't contain the secret drinks.
     # Right now the drinks aren't sorted.
     # The current format of the output is:
+    # \drink [name]
+    # \til [price]
+    # \med %
+    #     [amount]    & [kind] \og
+    #                 & [kind] \og
+    #                 & [soda] \og
+    #     \serveret i et [other] med is
 
-    # \section*{name}
-    # \begin{itemize}
-    # 	\item spirits
-    # 	\item sodas
-    # 	\item others
-    # 	\item price
-    # \end{itemize}
 
     # Write to .tex file. Loop over the number of drinks.
     with codecs.open('barcard.tex', 'w', encoding=OUTPUT_ENCODING) as barcard:
