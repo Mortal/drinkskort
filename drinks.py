@@ -116,8 +116,9 @@ def makedrinks():
         for spirit in currentingredients['spirit']:
             amount = '\t'
             if '-' in spirit:
-                # Split returns an array of strings. amount is the first of these
-                amount = spirit.split('-')[0].strip() +'\t'
+                # Split returns an array of strings.
+                # amount is the first of these
+                amount = spirit.split('-')[0].strip() + '\t'
                 spirit = spirit.split('-')[1].strip()
             drinkline += '' + amount + '& ' + spirit + '\og \n'
         for soda in currentingredients['soda']:
@@ -128,7 +129,8 @@ def makedrinks():
     barcard.close()
 
     # Combine and sort the normal and secret drinks.
-    drinksdict = collections.OrderedDict(list(drinksdict.items()) + list(secretdrinkdict.items()))
+    drinksdict = collections.OrderedDict(
+        list(drinksdict.items()) + list(secretdrinkdict.items()))
     drinksdict_sorted = sorted(drinksdict)
 
     # Open file for the mixing card ("blandeliste")
@@ -136,7 +138,8 @@ def makedrinks():
 
     # Do TeX-stuff
     mixingcardline = '\\begin{tabular}{lllll}\n'
-    mixingcardline += '\\toprule Navn & Sprut & Sodavand & Severing & Pris \\\ \n\midrule'
+    mixingcardline += (
+        '\\toprule Navn & Sprut & Sodavand & Severing & Pris \\\ \n\midrule')
     mixingcard.writelines(mixingcardline)
 
     # Loop over all drinks
@@ -154,9 +157,10 @@ def makedrinks():
             # The strip here is to avoid the space before the comma.
             mixingcardline = mixingcardline.strip() + ', '
         mixingcardline += '& '
-        ##
-        ## some drinks dosnt contain any soda so this check needs to be done before.
-        ## Maybe this needs to be done before every ingredients?
+
+        # some drinks do not contain any soda,
+        # so this check needs to be done beforehand.
+        # Maybe this needs to be done before every ingredients?
         if 'soda' in currentingredients.keys():
             for soda in currentingredients['soda']:
                 mixingcardline += soda + ' '
