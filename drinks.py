@@ -98,17 +98,17 @@ def generatebarcard(drinks):
         yield r'\med %'
 
         for spirit in currentingredients['spirit']:
-            amount = '\t'
+            amount = '\t\t'
             if '-' in spirit:
                 # Split returns an array of strings.
                 # amount is the first of these
                 amount, spirit = spirit.split('-')
                 amount = amount.strip() + '\t'
                 spirit = spirit.strip()
-            yield r'%s& %s\og' % (amount, spirit)
+            yield r'%s& %s \og' % (amount, spirit)
 
         for soda in currentingredients['soda']:
-            yield r'& %s\og' % soda
+            yield '\t\t& %s \og' % soda
 
         for other in currentingredients['other']:
             yield '\t\t' + r'\serveret I et %s med is' % other
@@ -155,11 +155,12 @@ def makedrinks():
     # This won't contain the secret drinks.
     # Right now the drinks aren't sorted.
     # The current format of the output is:
-    # \drink name
+    # \drink [name]
     # \til [price]
     # \med %
     #     [amount]    & [kind] \og
     #                 & [kind] \og
+    #                 & [soda] \og
     #     \serveret i et [other] med is
 
 
