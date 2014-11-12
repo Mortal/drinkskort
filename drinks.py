@@ -24,7 +24,8 @@ import collections
 ENCODING = 'utf8'
 
 # ... except the input to plain TeX
-OUTPUT_ENCODING = 'latin1'
+# Wich is why we use xetex :-)
+OUTPUT_ENCODING = 'utf8'
 
 # Name of drinks file defining drinks. Default 'drinks.txt'
 drinksfilename = 'drinks.txt'
