@@ -114,6 +114,35 @@ def generatebarcard(drinksdict):
             yield '\\serveret I et %s med is\n' % other
 
 
+def generatemixingcard(drinksdict_sorted, drinksdict):
+    # Do TeX-stuff
+    yield '\\begin{tabular}{lllll}'
+    yield '\\toprule Navn & Sprut & Sodavand & Severing & Pris \\\\'
+    yield '\midrule'
+
+    # Loop over all drinks
+    for drinknumber, drink in enumerate(drinksdict_sorted):
+        currentingredients = drinksdict[drink]
+        mixingcardformat = (
+            u'{color}{drink} & {ingredients} & '
+            u'{soda} & {other} & {price} kr\\\\ \n'
+        )
+        mixingcardline = mixingcardformat.format(
+            color='\\rowcolor{Gray} ' if drinknumber % 2 == 0 else '',
+            drink=drink,
+            ingredients=', '.join(' '.join(part for part in spirit.split('-'))
+                                  for spirit in currentingredients['spirit']),
+            soda=' '.join(currentingredients.get('soda', [])),
+            other=' '.join(currentingredients['other']),
+            price=currentingredients['price'],
+            )
+
+        yield mixingcardline
+
+    yield '\\bottomrule'
+    yield '\end{tabular}'
+
+
 #####################################
 # The function which does the magic #
 #####################################
@@ -145,36 +174,9 @@ def makedrinks():
     drinksdict_sorted = sorted(drinksdict)
 
     # Open file for the mixing card ("blandeliste")
-    mixingcard = codecs.open('mixing.tex', 'w', encoding=ENCODING)
-
-    # Do TeX-stuff
-    mixingcardline = '\\begin{tabular}{lllll}\n'
-    mixingcardline += (
-        '\\toprule Navn & Sprut & Sodavand & Severing & Pris \\\ \n\midrule')
-    mixingcard.writelines(mixingcardline)
-
-    # Loop over all drinks
-    for drinknumber, drink in enumerate(drinksdict_sorted):
-        currentingredients = drinksdict[drink]
-        mixingcardformat = (
-            u'{color}{drink} & {ingredients} & '
-            u'{soda} & {other} & {price} kr\\\\ \n'
-        )
-        mixingcardline = mixingcardformat.format(
-            color='\\rowcolor{Gray} ' if drinknumber % 2 == 0 else '',
-            drink=drink,
-            ingredients=', '.join(' '.join(part for part in spirit.split('-'))
-                                  for spirit in currentingredients['spirit']),
-            soda=' '.join(currentingredients.get('soda', [])),
-            other=' '.join(currentingredients['other']),
-            price=currentingredients['price'],
-            )
-
-        mixingcard.writelines(mixingcardline)
-
-    mixingcardline = '\\bottomrule\n\end{tabular}'
-    mixingcard.writelines(mixingcardline)
-    mixingcard.close()
+    with codecs.open('mixing.tex', 'w', encoding=ENCODING) as mixingcard:
+        for line in generatemixingcard(drinksdict_sorted, drinksdict):
+            mixingcard.write('%s\n' % line)
 
     # Wuhu! Done!
 
