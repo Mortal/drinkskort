@@ -157,18 +157,16 @@ def makedrinks():
     drinknumber = 0
     for drink in drinksdict_sorted:
         currentingredients = drinksdict[drink]
-        mixingcardline = '{color}{drink} & {ingredients} & {soda} & '.format(
+        mixingcardline = '{color}{drink} & {ingredients} & {soda} & {other} & {price} kr\\\\ \n'.format(
             color='\\rowcolor{Gray} ' if drinknumber % 2 == 0 else '',
             drink=drink,
             ingredients=', '.join(' '.join(part for part in spirit.split('-'))
                                   for spirit in currentingredients['spirit']),
             soda=' '.join(currentingredients.get('soda', [])),
+            other=' '.join(currentingredients['other']),
+            price=currentingredients['price'],
             )
 
-        for other in currentingredients['other']:
-            mixingcardline += other + ' '
-        mixingcardline += '& '
-        mixingcardline += currentingredients['price'] + ' kr\\\ \n'
         mixingcard.writelines(mixingcardline)
         drinknumber += 1
     mixingcardline = '\\bottomrule\n\end{tabular}'
