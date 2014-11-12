@@ -32,29 +32,29 @@ drinksfilename = 'drinks.txt'
 
 def readdrinks(drinksfile):
     drinks = []
-    currentdrinkdict = None
 
     # Read the file line by line
     for line in drinksfile:
-
         # Get the current drink
         if line.startswith('='):
-            currentdrinkdict = {
-                'soda': [],
-                'spirit': [],
-                'other': [],
-                'secret': False,
-            }
-
-            # Get name of drink without any newline
             name = line[1:].strip()
 
             # Sort into secret and normal drinks
             if name.startswith('?'):
-                currentdrinkdict['secret'] = True
+                secret = True
                 name = name[1:].strip()
+            else:
+                secret = False
 
-            currentdrinkdict['name'] = name
+            currentdrinkdict = {
+                'name': name,
+                'soda': [],
+                'spirit': [],
+                'other': [],
+                'price': '',
+                'secret': secret,
+            }
+            drinks.append(currentdrinkdict)
 
         # Soda
         elif line.startswith('--'):
@@ -108,10 +108,11 @@ def generatebarcard(drinks):
             yield r'%s& %s\og' % (amount, spirit)
 
         for soda in currentingredients['soda']:
-            yield r'& %s\\og' % soda
+            yield r'& %s\og' % soda
 
         for other in currentingredients['other']:
-            yield r'\serveret I et %s med is' % other
+            yield '\t\t' + r'\serveret I et %s med is' % other
+            yield ''
 
 
 def generatemixingcard(drinks):
