@@ -167,9 +167,8 @@ def makedrinks():
         # some drinks do not contain any soda,
         # so this check needs to be done beforehand.
         # Maybe this needs to be done before every ingredients?
-        if 'soda' in currentingredients.keys():
-            for soda in currentingredients['soda']:
-                mixingcardline += soda + ' '
+        for soda in currentingredients.get('soda', []):
+            mixingcardline += soda + ' '
         mixingcardline += '& '
         for other in currentingredients['other']:
             mixingcardline += other + ' '
