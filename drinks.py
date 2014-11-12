@@ -22,6 +22,9 @@ import collections
 # Encoding is always utf8!
 ENCODING = 'utf8'
 
+# ... except the input to plain TeX
+OUTPUT_ENCODING = 'latin1'
+
 # Name of drinks file defining drinks. Default 'drinks.txt'
 drinksfilename = 'drinks.txt'
 
@@ -160,7 +163,7 @@ def makedrinks():
     # \end{itemize}
 
     # Write to .tex file. Loop over the number of drinks.
-    with codecs.open('barcard.tex', 'w', encoding=ENCODING) as barcard:
+    with codecs.open('barcard.tex', 'w', encoding=OUTPUT_ENCODING) as barcard:
         for line in generatebarcard(drinks):
             barcard.write('%s\n' % line)
 
