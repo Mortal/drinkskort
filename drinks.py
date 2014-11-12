@@ -157,17 +157,12 @@ def makedrinks():
     drinknumber = 0
     for drink in drinksdict_sorted:
         currentingredients = drinksdict[drink]
-        mixingcardline = '{color}{drink} & '.format(
+        mixingcardline = '{color}{drink} & {ingredients}& '.format(
             color='\\rowcolor{Gray} ' if drinknumber % 2 == 0 else '',
             drink=drink,
+            ingredients=', '.join(' '.join(part for part in spirit.split('-'))
+                                  for spirit in currentingredients['spirit']),
             )
-        # mixingcardline = '\midrule ' + drink + ' &'
-        for spirit in currentingredients['spirit']:
-            for sp in spirit.split('-'):
-                mixingcardline += sp.strip() + ' '
-            # The strip here is to avoid the space before the comma.
-            mixingcardline = mixingcardline.strip() + ', '
-        mixingcardline += '& '
 
         # some drinks do not contain any soda,
         # so this check needs to be done beforehand.
