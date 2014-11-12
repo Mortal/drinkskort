@@ -113,8 +113,8 @@ def makedrinks():
     for drink in drinksdict:
 
         currentingredients = drinksdict[drink]
-        drinkline = '\drik ' + drink + '\n'
-        drinkline += '\\til ' + currentingredients['price'] + '\n'
+        drinkline = '\\drik %s\n' % drink
+        drinkline += '\\til %s\n' % currentingredients['price']
         # Write every other thing:
         drinkline += '\med %\n'
         for spirit in currentingredients['spirit']:
