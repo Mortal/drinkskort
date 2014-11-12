@@ -88,6 +88,28 @@ def readdrinks(drinksfile):
     return drinksdict, secretdrinkdict
 
 
+def generatebarcard(drinksdict):
+    for drink in drinksdict:
+        currentingredients = drinksdict[drink]
+        yield '\\drik %s' % drink
+        yield '\\til %s' % currentingredients['price']
+        # Write every other thing:
+        yield '\\med %'
+        for spirit in currentingredients['spirit']:
+            amount = '\t'
+            if '-' in spirit:
+                # Split returns an array of strings.
+                # amount is the first of these
+                amount, spirit = spirit.split('-')
+                amount = amount.strip() + '\t'
+                spirit = spirit.strip()
+            yield '%s& %s\\og' % (amount, spirit)
+        for soda in currentingredients['soda']:
+            yield '\t\t& %s\\og' % soda
+        for other in currentingredients['other']:
+            yield '\\serveret I et %s med is\n' % other
+
+
 #####################################
 # The function which does the magic #
 #####################################
@@ -109,29 +131,9 @@ def makedrinks():
     # \end{itemize}
 
     # Write to .tex file. Loop over the number of drinks.
-    barcard = codecs.open('barcard.tex', 'w', encoding=ENCODING)
-    for drink in drinksdict:
-
-        currentingredients = drinksdict[drink]
-        drinkline = '\\drik %s\n' % drink
-        drinkline += '\\til %s\n' % currentingredients['price']
-        # Write every other thing:
-        drinkline += '\med %\n'
-        for spirit in currentingredients['spirit']:
-            amount = '\t'
-            if '-' in spirit:
-                # Split returns an array of strings.
-                # amount is the first of these
-                amount, spirit = spirit.split('-')
-                amount = amount.strip() + '\t'
-                spirit = spirit.strip()
-            drinkline += '%s& %s\\og\n' % (amount, spirit)
-        for soda in currentingredients['soda']:
-            drinkline += '\t\t& %s\\og\n' % soda
-        for other in currentingredients['other']:
-            drinkline += '\\serveret I et %s med is\n\n' % other
-        barcard.writelines(drinkline)
-    barcard.close()
+    with codecs.open('barcard.tex', 'w', encoding=ENCODING) as barcard:
+        for line in generatebarcard(drinksdict):
+            barcard.writelines(line)
 
     # Combine and sort the normal and secret drinks.
     drinksdict = collections.OrderedDict(
