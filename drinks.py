@@ -27,9 +27,7 @@ drinksfilename = 'drinks.txt'
 
 
 def readdrinks(drinksfile):
-    # Initialize dictories
     drinks = []
-    secretdrinks = []
     currentdrinkdict = None
 
     # Read the file line by line
@@ -41,6 +39,7 @@ def readdrinks(drinksfile):
                 'soda': [],
                 'spirit': [],
                 'other': [],
+                'secret': False,
             }
 
             # Get name of drink without any newline
@@ -48,12 +47,10 @@ def readdrinks(drinksfile):
 
             # Sort into secret and normal drinks
             if name.startswith('?'):
-                name = name.strip('? ')
-                currentdrinkdict['name'] = name
-                secretdrinks.append(currentdrinkdict)
-            else:
-                currentdrinkdict['name'] = name
-                drinks.append(currentdrinkdict)
+                currentdrinkdict['secret'] = True
+                name = name[1:].strip()
+
+            currentdrinkdict['name'] = name
 
         # Soda
         elif line.startswith('--'):
@@ -80,11 +77,15 @@ def readdrinks(drinksfile):
         else:
             pass
 
-    return drinks, secretdrinks
+    return drinks
 
 
 def generatebarcard(drinks):
     for currentingredients in drinks:
+        if currentingredients['secret']:
+            # Skip secret drinks
+            continue
+
         drink = currentingredients['name']
         yield r'\drik %s' % drink
         yield r'\til %s' % currentingredients['price']
@@ -143,7 +144,7 @@ def generatemixingcard(drinks):
 #####################################
 def makedrinks():
     with codecs.open(drinksfilename, 'r', encoding=ENCODING) as drinksfile:
-        drinks, secretdrinks = readdrinks(drinksfile)
+        drinks = readdrinks(drinksfile)
 
     # Now we make the barcards ("drinkskort").
     # This won't contain the secret drinks.
@@ -163,10 +164,8 @@ def makedrinks():
         for line in generatebarcard(drinks):
             barcard.write('%s\n' % line)
 
-    # Combine and sort the normal and secret drinks.
-    drinks_sorted = sorted(
-        drinks + secretdrinks,
-        key=lambda drink: drink['name'])
+    # Sort all drinks by name
+    drinks_sorted = sorted(drinks, key=lambda drink: drink['name'])
 
     # Open file for the mixing card ("blandeliste")
     with codecs.open('mixing.tex', 'w', encoding=ENCODING) as mixingcard:
