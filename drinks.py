@@ -122,8 +122,9 @@ def makedrinks():
             if '-' in spirit:
                 # Split returns an array of strings.
                 # amount is the first of these
-                amount = spirit.split('-')[0].strip() + '\t'
-                spirit = spirit.split('-')[1].strip()
+                amount, spirit = spirit.split('-')
+                amount = amount.strip() + '\t'
+                spirit = spirit.strip()
             drinkline += '' + amount + '& ' + spirit + '\og \n'
         for soda in currentingredients['soda']:
             drinkline += '\t\t& ' + soda + '\og \n'
