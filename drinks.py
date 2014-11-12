@@ -12,6 +12,7 @@
 # Modules #
 ###########
 import codecs
+import subprocess
 import collections
 
 
@@ -175,6 +176,14 @@ def makedrinks():
         for line in generatemixingcard(drinks_sorted):
             mixingcard.write('%s\n' % line)
 
+    subprocess.check_call(
+        'tex barcardmain.tex'.split())
+    subprocess.check_call(
+        'dvips -t landscape -Ppk barcardmain.dvi -o'.split())
+    subprocess.check_call(
+        'ps2pdf -sPAPERSIZE=a4 barcardmain.ps barcardmain.pdf'.split())
+    subprocess.check_call(
+        'latexmk -pdf mixingcardmain.tex'.split())
     # Wuhu! Done!
 
 
