@@ -157,10 +157,10 @@ def makedrinks():
     drinknumber = 0
     for drink in drinksdict_sorted:
         currentingredients = drinksdict[drink]
-        mixingcardline = ''
-        if drinknumber % 2 == 0:
-            mixingcardline = '\\rowcolor{Gray} '
-        mixingcardline += drink + ' &'
+        mixingcardline = '{color}{drink} & '.format(
+            color='\\rowcolor{Gray} ' if drinknumber % 2 == 0 else '',
+            drink=drink,
+            )
         # mixingcardline = '\midrule ' + drink + ' &'
         for spirit in currentingredients['spirit']:
             for sp in spirit.split('-'):
