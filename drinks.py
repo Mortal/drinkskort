@@ -75,7 +75,7 @@ def readdrinks(drinksfile):
             currentprice = line[1:].strip()
             currentdrinkdict['price'] = currentprice
 
-        # This makes sure every other line is ignored.
+        # Unrecognized line.
         # Maybe we should print a warning (with line number)?
         else:
             pass
