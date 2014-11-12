@@ -26,10 +26,7 @@ ENCODING = 'utf8'
 drinksfilename = 'drinks.txt'
 
 
-#####################################
-# The function which does the magic #
-#####################################
-def makedrinks():
+def readdrinks():
     # Initialize dictories
     drinksdict = collections.OrderedDict()
     secretdrinkdict = collections.OrderedDict()
@@ -90,6 +87,15 @@ def makedrinks():
         # Maybe we should print a warning (with line number)?
         else:
             pass
+
+    return drinksdict, secretdrinkdict
+
+
+#####################################
+# The function which does the magic #
+#####################################
+def makedrinks():
+    drinksdict, secretdrinkdict = readdrinks()
 
     # Now we make the barcards ("drinkskort").
     # This won't contain the secret drinks.
