@@ -157,19 +157,14 @@ def makedrinks():
     drinknumber = 0
     for drink in drinksdict_sorted:
         currentingredients = drinksdict[drink]
-        mixingcardline = '{color}{drink} & {ingredients}& '.format(
+        mixingcardline = '{color}{drink} & {ingredients} & {soda} & '.format(
             color='\\rowcolor{Gray} ' if drinknumber % 2 == 0 else '',
             drink=drink,
             ingredients=', '.join(' '.join(part for part in spirit.split('-'))
                                   for spirit in currentingredients['spirit']),
+            soda=' '.join(currentingredients.get('soda', [])),
             )
 
-        # some drinks do not contain any soda,
-        # so this check needs to be done beforehand.
-        # Maybe this needs to be done before every ingredients?
-        for soda in currentingredients.get('soda', []):
-            mixingcardline += soda + ' '
-        mixingcardline += '& '
         for other in currentingredients['other']:
             mixingcardline += other + ' '
         mixingcardline += '& '
