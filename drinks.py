@@ -154,8 +154,7 @@ def makedrinks():
     mixingcard.writelines(mixingcardline)
 
     # Loop over all drinks
-    drinknumber = 0
-    for drink in drinksdict_sorted:
+    for drinknumber, drink in enumerate(drinksdict_sorted):
         currentingredients = drinksdict[drink]
         mixingcardformat = (
             '{color}{drink} & {ingredients} & '
@@ -172,7 +171,7 @@ def makedrinks():
             )
 
         mixingcard.writelines(mixingcardline)
-        drinknumber += 1
+
     mixingcardline = '\\bottomrule\n\end{tabular}'
     mixingcard.writelines(mixingcardline)
     mixingcard.close()
