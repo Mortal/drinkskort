@@ -157,8 +157,8 @@ def makedrinks():
     for drinknumber, drink in enumerate(drinksdict_sorted):
         currentingredients = drinksdict[drink]
         mixingcardformat = (
-            '{color}{drink} & {ingredients} & '
-            '{soda} & {other} & {price} kr\\\\ \n'
+            u'{color}{drink} & {ingredients} & '
+            u'{soda} & {other} & {price} kr\\\\ \n'
         )
         mixingcardline = mixingcardformat.format(
             color='\\rowcolor{Gray} ' if drinknumber % 2 == 0 else '',
