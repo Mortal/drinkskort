@@ -2,10 +2,10 @@
 # Første tegn i hver linje fortæller typen af ingridiensen
 # = Betyder navnet på drinken 
 # =? betyder hemmelig drink der kun kommer på barkort)
-# - skal foran spiritus
+# - skal foran spiritus mængden af spiritus og typen. dvs der kan komme to - i samme sætning
 # -- skal foran sodavand/juice
-# ! skal foran andet (isterninger, servering)
-# $ skal foran pris
+# ! skal foran hvad det serveres i
+# $ skal foran pris. Undlad enhed -- kr skrives af TeX
 # tomme linjer ignoreres
 
 Faktisk bliver alt hvor der ikke står =,-,! eller $ ignoreret.
@@ -13,31 +13,30 @@ Faktisk bliver alt hvor der ikke står =,-,! eller $ ignoreret.
 # Eksempler:
 
 =? Brandbil
-- 2 cl Jägermaister
+- 2 cl - Jägermaister
 -- Rød sodavand
-! Serveres i drinksglas med isterninger
-$ 15 kr
+! drinksglas
+$ 15
 
 = Arandbil
-- 2 cl Jägermaister
+- 2 cl - Jägermaister
 -- Rød sodavand
-! Serveres i drinksglas med isterninger
-$ 15 kr
+! drinksglas
+$ 15
 
 =? Lille FU fald død om
-- 2 cl Gin
-- 2 cl Vodka
-- 2 cl Tequila 
-- 2 cl Lys Rom
-- 2 cl Pisamg bong
-! Serveres i drinksglas
-$ 50 kr
+- 2 cl - Gin
+- 2 cl - Vodka
+- 2 cl - Tequila 
+- 2 cl - Lys Rom
+- 2 cl - Pisamg bong
+! drinksglas
+$ 50
 
 
 = Crandbil med udrykning
-- 2 cl Jägermaister
-- 2 cl Vodka
+- 2 cl - Jägermaister
+- 2 cl - Vodka
 -- Rød sodavand
-! Serveres i drinksglas med isterninger
-$ 25 kr
-
+! fadølsglas
+$ 25

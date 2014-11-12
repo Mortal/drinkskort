@@ -107,20 +107,23 @@ def makedrinks():
     # Write to .tex file. Loop over the number of drinks.
     barcard = codecs.open('barcard.tex', 'w', encoding=ENCODING)
     for drink in drinksdict:
-        drinkline = '\section*{' + drink + '}\n'
-        drinkline += '\\begin{itemize}\n'
 
-        # Write every other thing:
         currentingredients = drinksdict[drink]
+        drinkline = '\drik ' + drink + '\n'
+        drinkline += '\\til ' + currentingredients['price'] + '\n'
+        # Write every other thing:
+        drinkline += '\med %\n'
         for spirit in currentingredients['spirit']:
-            drinkline += '\t\item ' + spirit + '\n'
+            amount = '\t'
+            if '-' in spirit:
+                # Split returns an array of strings. amount is the first of these
+                amount = spirit.split('-')[0].strip() +'\t'
+                spirit = spirit.split('-')[1].strip()
+            drinkline += '' + amount + '& ' + spirit + '\og \n'
         for soda in currentingredients['soda']:
-            drinkline += '\t\item ' + soda + '\n'
+            drinkline += '\t\t& ' + soda + '\og \n'
         for other in currentingredients['other']:
-            drinkline += '\t\item ' + other + '\n'
-
-        drinkline += '\t\item ' + currentingredients['price'] + '\n'
-        drinkline += '\end{itemize}\n\n'
+            drinkline += '\serveret I et ' + other + ' med is\n\n'
         barcard.writelines(drinkline)
     barcard.close()
 
@@ -132,25 +135,39 @@ def makedrinks():
     mixingcard = codecs.open('mixing.tex', 'w', encoding=ENCODING)
 
     # Do TeX-stuff
-    mixingcardline = '\\begin{table}{lllll}\n'
-    mixingcardline += '\\toprule Navn & Sprut & Sodavand & Severing & Pris \\\ \n'
+    mixingcardline = '\\begin{tabular}{lllll}\n'
+    mixingcardline += '\\toprule Navn & Sprut & Sodavand & Severing & Pris \\\ \n\midrule'
     mixingcard.writelines(mixingcardline)
 
     # Loop over all drinks
+    drinknumber = 0
     for drink in drinksdict_sorted:
-        mixingcardline = '\midrule ' + drink + ' & '
+        currentingredients = drinksdict[drink]
+        mixingcardline = ''
+        if drinknumber % 2 == 0:
+            mixingcardline = '\\rowcolor{Gray} '
+        mixingcardline += drink + ' &'
+        # mixingcardline = '\midrule ' + drink + ' &'
         for spirit in currentingredients['spirit']:
-            mixingcardline += spirit + ' '
+            for sp in spirit.split('-'):
+                mixingcardline += sp.strip() + ' '
+            # The strip here is to avoid the space before the comma.
+            mixingcardline = mixingcardline.strip() + ', '
         mixingcardline += '& '
-        for soda in currentingredients['soda']:
-            mixingcardline += soda + ' '
+        ##
+        ## some drinks dosnt contain any soda so this check needs to be done before.
+        ## Maybe this needs to be done before every ingredients?
+        if 'soda' in currentingredients.keys():
+            for soda in currentingredients['soda']:
+                mixingcardline += soda + ' '
         mixingcardline += '& '
         for other in currentingredients['other']:
             mixingcardline += other + ' '
         mixingcardline += '& '
-        mixingcardline += currentingredients['price'] + '\\\ \n'
+        mixingcardline += currentingredients['price'] + ' kr\\\ \n'
         mixingcard.writelines(mixingcardline)
-    mixingcardline = '\end{table}'
+        drinknumber += 1
+    mixingcardline = '\\bottomrule\n\end{tabular}'
     mixingcard.writelines(mixingcardline)
     mixingcard.close()
 
