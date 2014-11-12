@@ -1,6 +1,6 @@
 # Dette er en en kommentar og den vil blive ignoreret
 # Første tegn i hver linje fortæller typen af ingridiensen
-# = Betyder navnet på drinken 
+# = Betyder navnet på drinken
 # =? betyder hemmelig drink der kun kommer på barkort)
 # - skal foran spiritus mængden af spiritus og typen. dvs der kan komme to - i samme sætning
 # -- skal foran sodavand/juice
@@ -27,7 +27,7 @@ $ 15
 =? Lille FU fald død om
 - 2 cl - Gin
 - 2 cl - Vodka
-- 2 cl - Tequila 
+- 2 cl - Tequila
 - 2 cl - Lys Rom
 - 2 cl - Pisamg bong
 ! drinksglas
