@@ -26,14 +26,11 @@ ENCODING = 'utf8'
 drinksfilename = 'drinks.txt'
 
 
-def readdrinks():
+def readdrinks(drinksfile):
     # Initialize dictories
     drinksdict = collections.OrderedDict()
     secretdrinkdict = collections.OrderedDict()
     currentdrinkdict = None
-
-    # Read the input file
-    drinksfile = codecs.open(drinksfilename, 'r', encoding=ENCODING)
 
     # Read the file line by line
     for line in drinksfile:
@@ -95,7 +92,8 @@ def readdrinks():
 # The function which does the magic #
 #####################################
 def makedrinks():
-    drinksdict, secretdrinkdict = readdrinks()
+    with codecs.open(drinksfilename, 'r', encoding=ENCODING) as drinksfile:
+        drinksdict, secretdrinkdict = readdrinks(drinksfile)
 
     # Now we make the barcards ("drinkskort").
     # This won't contain the secret drinks.
