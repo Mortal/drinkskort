@@ -133,7 +133,7 @@ def makedrinks():
     # Write to .tex file. Loop over the number of drinks.
     with codecs.open('barcard.tex', 'w', encoding=ENCODING) as barcard:
         for line in generatebarcard(drinksdict):
-            barcard.writelines(line)
+            barcard.write('%s\n' % line)
 
     # Combine and sort the normal and secret drinks.
     drinksdict = collections.OrderedDict(
