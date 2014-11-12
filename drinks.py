@@ -177,14 +177,14 @@ def makedrinks():
         for line in generatemixingcard(drinks_sorted):
             mixingcard.write('%s\n' % line)
 
-    subprocess.check_call(
-        'tex barcardmain.tex'.split())
-    subprocess.check_call(
-        'dvips -t landscape -Ppk barcardmain.dvi -o'.split())
-    subprocess.check_call(
-        'ps2pdf -sPAPERSIZE=a4 barcardmain.ps barcardmain.pdf'.split())
-    subprocess.check_call(
-        'latexmk -pdf mixingcardmain.tex'.split())
+    # As we are having problems with utf8 and plain tex we use xetex as this has nooo problem
+    # XeTeX is installed on imf computers...
+    # Also xetex seems to have problems when called as a subprocess. Why i dont know.
+    # Use make instead?
+    # subprocess.check_call(
+    #     'xetex -output-driver="xdvipdfmx -q -E -p a4 -l" barcardmain.tex'.split())
+    # subprocess.check_call(
+    #     'latexmk -pdf mixingcardmain.tex'.split())
     # Wuhu! Done!
 
 
