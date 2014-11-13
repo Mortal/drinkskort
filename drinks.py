@@ -83,6 +83,7 @@ def readdrinks(drinksfile):
         elif line.startswith('$'):
             currentprice = line[1:].strip()
             currentdrinkdict['price'] = currentprice
+
         # Comment
         elif line.startswith('#'):
             pass
@@ -126,8 +127,14 @@ def generatebarcard(drinks):
         for soda in currentingredients['soda']:
             yield '\t\t& %s \og' % soda
 
+
         for other in currentingredients['other']:
-            yield '\t\t' + r'\serveret I et %s med is' % other
+            if other.lower() == u'drinksglas':
+                yield '\t\t' + r'\serveret I et %s med is' % other
+            elif other.lower() == u'fadølsglas':
+                yield '\t\t' + r'\serveret I et %s med is' % other
+            else:
+                yield '\t\t' + r'\serveret %s' % other
             yield ''
 
 
@@ -150,7 +157,7 @@ def generatemixingcard(drinks):
             ingredients=', '.join(' '.join(part for part in spirit.split('-'))
                                   for spirit in currentingredients['spirit']),
             soda=', '.join(currentingredients.get('soda', [])),
-            other=' '.join(currentingredients['other']),
+            other=' '.join(currentingredients['other']).capitalize(),
             price=currentingredients['price'],
             )
 
@@ -183,10 +190,8 @@ def makedrinks():
     # Write to .tex file. Loop over the number of drinks.
 
     if sortbarcard:
-        print('Sorting barcard ' + str(drinks))
         price_sorted_drinks = sorted(drinks, key=lambda drink: drink['price'])
         drinks = price_sorted_drinks
-        print(str(drinks))
 
     with codecs.open('barcard.tex', 'w', encoding=OUTPUT_ENCODING) as barcard:
         for line in generatebarcard(drinks):
