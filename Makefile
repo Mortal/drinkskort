@@ -10,23 +10,31 @@ Example:                                                             \
 # Generating output
 #
 
-# Default input file is drinks.txt
+# Defaults 
 fest ?= drinks
+sort ?= sorted
 
 # Run it all!
-all: $(fest) bar mixing
+all: $(sort) bar_$(fest).pdf mixing_$(fest).pdf
 
 # Generate the lists
-$(fest): drinks.py $(fest).txt
+sorted: drinks.py $(fest).txt
+	python $< -s $(fest).txt
+
+unsorted: drinks.py $(fest).txt
 	python $< $(fest).txt
 
 # Create the barcards
-bar:
-	xetex -output-driver="xdvipdfmx -q -E -p a4 -l" barcardmain.tex
+bar_$(fest).pdf:
+	xetex -jobname=bar_$(fest) -output-driver="xdvipdfmx -q -E -p a4 -l" barcardmain.tex
 
 # Create the mixing card
-mixing:
-	pdflatex mixingcardmain.tex
+mixing_$(fest).pdf:
+	pdflatex -jobname=mixing_$(fest) mixingcardmain.tex
+
+# Test the input file
+test: drinks.py
+	python $< -v $(fest).txt
 
 
 #
