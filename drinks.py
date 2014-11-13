@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-11-12 13:53:29 moss>
 
 ######################################
 # Scipt for handling drinks          #
 #                                    #
 # Made by:  Mads Fabricius Scmidt    #
 #           Jakob Rørstes Mosumgaard #
+#           Mathias Rav              #
 ######################################
 
 ###########
 # Modules #
 ###########
 import codecs
-import subprocess
-import collections
 import argparse
 
 
@@ -23,10 +21,6 @@ import argparse
 
 # Encoding is always utf8!
 ENCODING = 'utf8'
-
-# ... except the input to plain TeX
-# Wich is why we use xetex :-)
-OUTPUT_ENCODING = 'utf8'
 
 # Name of drinks file defining drinks. Default 'drinks.txt'
 drinksfilename = 'drinks.txt'
@@ -91,7 +85,6 @@ def readdrinks(drinksfile):
         elif line.startswith('\n'):
             pass
         # Unrecognized line.
-        # Maybe we should print a warning (with line number)?
         else:
             if verbose:
                 print('Unrecognized line: ' + line.strip())
@@ -126,7 +119,6 @@ def generatebarcard(drinks):
 
         for soda in currentingredients['soda']:
             yield '\t\t& %s \og' % soda
-
 
         for other in currentingredients['other']:
             if other.lower() == u'drinksglas':
@@ -174,30 +166,16 @@ def makedrinks():
     with codecs.open(drinksfilename, 'r', encoding=ENCODING) as drinksfile:
         drinks = readdrinks(drinksfile)
 
-    # Now we make the barcards ("drinkskort").
-    # This won't contain the secret drinks.
-    # Right now the drinks aren't sorted.
-    # The current format of the output is:
-    # \drink [name]
-    # \til [price]
-    # \med %
-    #     [amount]    & [kind] \og
-    #                 & [kind] \og
-    #                 & [soda] \og
-    #     \serveret i et [other] med is
-
-
-    # Write to .tex file. Loop over the number of drinks.
-
+    # Sort the drinks on the barcard by price
     if sortbarcard:
         price_sorted_drinks = sorted(drinks, key=lambda drink: drink['price'])
         drinks = price_sorted_drinks
 
-    with codecs.open('barcard.tex', 'w', encoding=OUTPUT_ENCODING) as barcard:
+    with codecs.open('barcard.tex', 'w', encoding=ENCODING) as barcard:
         for line in generatebarcard(drinks):
             barcard.write('%s\n' % line)
 
-    # Sort all drinks by name
+    # Sort the drinks on the micing card by name
     drinks_sorted = sorted(drinks, key=lambda drink: drink['name'])
 
     # Open file for the mixing card ("blandeliste")
@@ -205,17 +183,10 @@ def makedrinks():
         for line in generatemixingcard(drinks_sorted):
             mixingcard.write('%s\n' % line)
 
-    # As we are having problems with utf8 and plain tex we use xetex as this has nooo problem
-    # with utf8
-    # XeTeX is installed on imf computers...
-    # Also xetex seems to have problems when called as a subprocess. Why i dont know.
-    # Use makefile instead.
-    # subprocess.check_call(
-    #     'xetex -output-driver="xdvipdfmx -q -E -p a4 -l" barcardmain.tex'.split())
-    # subprocess.check_call(
-    #     'latexmk -pdf mixingcardmain.tex'.split())
-    # Wuhu! Done!
 
+######################################
+# Parsing of arguments to the script #
+######################################
 def setupargparser():
     global verbose
     global sortbarcard
@@ -225,17 +196,15 @@ def setupargparser():
         description='Make barcards')
 
     parser.add_argument('filename')
-    parser.add_argument('-v','--verbose', action='store_true', default=False,
-        help='Do you want verbose output?')
-    parser.add_argument('-s','--sortbarcards', action='store_true',default=False,
-        help='Do you want barcards sorted?')
+    parser.add_argument('-v', '--verbose', action='store_true', default=False,
+                        help='Do you want verbose output?')
+    parser.add_argument('-s', '--sortbarcards', action='store_true', default=False,
+                        help='Do you want barcards sorted?')
 
     args = parser.parse_args()
     drinksfilename = args.filename
     verbose = args.verbose
     sortbarcard = args.sortbarcards
-
-
 
 
 # Run the function if file is called directly
