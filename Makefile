@@ -19,10 +19,10 @@ all: $(sort) bar_$(fest).pdf mixing_$(fest).pdf
 
 # Generate the lists
 sorted: drinks.py $(fest).txt
-	python $< -s $(fest).txt
+	python3 $< -s $(fest).txt
 
 unsorted: drinks.py $(fest).txt
-	python $< $(fest).txt
+	python3 $< $(fest).txt
 
 # Create the barcards
 bar_$(fest).pdf:
