@@ -1,10 +1,3 @@
-%aabn terminal, gaa ind i den rigtige mappe og skriv nedenstaaende,
-%paa linux kan makedrink scriptet bruges, med de rigtige navne
-
-%tex DrinksFeb2012.tex
-%dvips -t landscape -Ppk DrinksMaj2011.dvi -o
-%ps2pdf -sPAPERSIZE#a4 DrinksMaj2011.ps DrinksMaj2011.pdf
-%Paa windows skal man bruge #a4, paa linux =a4
 \font\Name=ecsx1000       at 10mm
 \font\Preis=ecsx1000      at 10mm
 \font\Dinge=ecsx1000      at  5mm
@@ -29,7 +22,7 @@
 \newbox\aeske
 \newif\ifbanjo
 
-% Ein Bi?chen Magie des GNFes.
+% Magic!
 \def\drik#1\til#2\med#3\serveret#4\par{%
   \setbox0=\vbox to\Hoehe{\hsize=\Breite
   \line{\Name#1\hfill\Preis#2kr.}
@@ -42,8 +35,8 @@
   \ifbanjo\line{\box\aeske\hfill\box0}\banjofalse
   \else\setbox\aeske\box0\banjotrue\fi}
 
-
+% Input the generated table
 \input barcard
 
 \ifvoid\aeske\else\line{\box\aeske\hfill}\fi
-\bye % Ende des Geschichtes.
+\bye
