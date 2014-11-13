@@ -1,0 +1,182 @@
+# Dette er en en kommentar og den vil blive ignoreret
+# Første tegn i hver linje fortæller typen af ingridiensen
+# = Betyder navnet på drinken
+# =? betyder hemmelig drink der kun kommer på barkort)
+# - skal foran spiritus mængden af spiritus og typen. dvs der kan komme to - i samme sætning
+# -- skal foran sodavand/juice
+# ! skal foran hvad det serveres i
+# $ skal foran pris. Undlad enhed -- kr skrives af TeX
+# tomme linjer ignoreres
+
+= Hola
+$ 15
+- 2 cl - Cuba Caramel
+- 2 cl - Lime  
+-- Schweppes Lemon
+! drinksglas
+ 
+= Unicorno
+$ 25
+- 4 cl - Gin
+- 2 cl - Lime
+-- Lidt grenadine
+-- Sprite
+! drinksglas
+ 
+= Russo Blanco
+$ 25
+- 2 cl - Kahlua 
+- 2 cl - Vodka 
+-- Mælk 
+! drinksglas
+ 
+= El Diablo
+$ 45
+- 2 cl - Gin 
+- 2 cl - Vodka 
+- 2 cl - Rom 
+- 2 cl - Tequila 
+-- Cola
+-- Schweppes Lemon
+! fadølsglas
+ 
+= El Mexicano
+$ 15
+- 2 cl - Tequila
+-- Lidt grenadine
+-- Appelsinjuice
+! drinksglas
+ 
+= Caramelo
+$ 25
+- 2 cl - Cuba Caramel
+- 2 cl - Kahlua
+-- Mælk
+! drinksglas
+ 
+= Santa Maria
+$ 25
+- 2 cl - Hindbærvodka
+- 2 cl - Southern Comfort
+-- Lidt grenadine
+-- Sprite 
+! drinksglas
+ 
+= El Dorado
+$ 15
+- 2 cl - Gin
+-- Schweppes Lemon
+! drinksglas
+ 
+= Vamos a la Playa
+$ 15
+- 2 cl - Vodka
+-- Blå Curacao
+-- Sprite
+! drinksglas
+ 
+= El Mariachi
+$ 15
+- 2 cl - Pisang Ambon
+-- Appelsinjuice
+! drinksglas
+ 
+= Zorro
+$ 25
+- 2 cl - Jägermeister
+- 2 cl - Pisang Ambon
+-- Cola
+! drinksglas
+ 
+= Pesos
+$ 15
+- 2 cl - Southern Comfort
+-- Sprite
+! drinksglas
+ 
+= Sombrero
+$ 25
+- 2 cl - Vodka
+- 2 cl - Gin
+-- Appelsinjuice
+-- Rød sodavand
+! drinksglas
+ 
+= Amigo
+$ 15
+- 2 cl - Jägermeister
+-- Rød sodavand
+! drinksglas
+
+= Siesta
+$ 15
+- 2 cl - Vodka
+- 4 cl - Hyldeblomstsaft
+-- Danskvand
+! drinksglas
+ 
+= Adios Amigo
+$ 25
+- 2 cl - Jägermeister
+- 2 cl - Vodka
+-- Rød sodavand
+! drinksglas
+ 
+= Flamenco
+$ 25
+- 2 cl - Southern Comfort
+- 2 cl - Vodka
+-- Lidt grenadine
+-- Appelsinjuice
+! drinksglas
+ 
+= Bombero
+$ 15
+- 2 cl - Jägermeister
+-- Energidrik
+! drinksglas med et shot.
+ 
+= Macarena
+$ 15
+- 2 cl - Hindbærvodka
+-- Sprite
+-- En skive citron
+! drinksglas
+ 
+= Loco
+$ 15
+- 2 cl - Vodka
+-- Æblejuice
+! drinksglas
+
+=? Chuck Norris
+- 2 cl - Gammel Dansk
+- 2 cl - Tequila
+- 2 cl - Gin
+- 2 cl - lime
+! drinksglas
+$ 30
+
+=? John Wayne
+- 2 cl - Blå Gajol
+- 2 cl - Gammel Dansk
+! 5 cl glas gerne lagdelt
+$ 20
+
+=? Lille FU fald død om
+- 2 cl - Gin
+- 2 cl - Vodka
+- 2 cl - Tequila
+- 2 cl - Lys Rom
+- 2 cl - Pisang bong
+- 2 cl - lime
+-- Sprite
+! fadølsglas
+$ 55
+
+=? Æblekage
+- 2 cl - Galliano
+-- 2 cl æblejuice
+-- flødeskum
+! 5 cl glas
+$ 15

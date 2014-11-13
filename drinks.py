@@ -14,6 +14,7 @@
 import codecs
 import subprocess
 import collections
+import argparse
 
 
 #####################
@@ -29,6 +30,12 @@ OUTPUT_ENCODING = 'utf8'
 
 # Name of drinks file defining drinks. Default 'drinks.txt'
 drinksfilename = 'drinks.txt'
+
+# Verbose (Print warnings)
+verbose = False
+
+# Sort barcards by price
+sortbarcard = False
 
 
 def readdrinks(drinksfile):
@@ -77,10 +84,19 @@ def readdrinks(drinksfile):
             currentprice = line[1:].strip()
             currentdrinkdict['price'] = currentprice
 
+        # Comment
+        elif line.startswith('#'):
+            pass
+        # Empty line
+        elif line.startswith('\n'):
+            pass
         # Unrecognized line.
         # Maybe we should print a warning (with line number)?
         else:
-            pass
+            if verbose:
+                print('Unrecognized line: ' + line.strip())
+            else:
+                pass
 
     return drinks
 
@@ -111,15 +127,21 @@ def generatebarcard(drinks):
         for soda in currentingredients['soda']:
             yield '\t\t& %s \og' % soda
 
+
         for other in currentingredients['other']:
-            yield '\t\t' + r'\serveret I et %s med is' % other
+            if other.lower() == u'drinksglas':
+                yield '\t\t' + r'\serveret I et %s med is' % other
+            elif other.lower() == u'fadølsglas':
+                yield '\t\t' + r'\serveret I et %s med is' % other
+            else:
+                yield '\t\t' + r'\serveret %s' % other
             yield ''
 
 
 def generatemixingcard(drinks):
     # Do TeX-stuff
     yield r'\begin{tabular}{lllll}'
-    yield r'\toprule Navn & Sprut & Sodavand & Severing & Pris \\'
+    yield r'\toprule Navn & Sprut & Sodavand & Servering & Pris \\'
     yield r'\midrule'
 
     # Loop over all drinks
@@ -127,15 +149,15 @@ def generatemixingcard(drinks):
         drink = currentingredients['name']
         mixingcardformat = (
             u'{color}{drink} & {ingredients} & '
-            u'{soda} & {other} & {price} kr\\\\ \n'
+            u'{soda} & {other} & {price} kr\\\\\n'
         )
         mixingcardline = mixingcardformat.format(
-            color='\\rowcolor{Gray} ' if drinknumber % 2 == 0 else '',
+            color='\\rowcolor{Gray}%\n' if drinknumber % 2 == 0 else '',
             drink=drink,
             ingredients=', '.join(' '.join(part for part in spirit.split('-'))
                                   for spirit in currentingredients['spirit']),
-            soda=' '.join(currentingredients.get('soda', [])),
-            other=' '.join(currentingredients['other']),
+            soda=', '.join(currentingredients.get('soda', [])),
+            other=' '.join(currentingredients['other']).capitalize(),
             price=currentingredients['price'],
             )
 
@@ -166,6 +188,11 @@ def makedrinks():
 
 
     # Write to .tex file. Loop over the number of drinks.
+
+    if sortbarcard:
+        price_sorted_drinks = sorted(drinks, key=lambda drink: drink['price'])
+        drinks = price_sorted_drinks
+
     with codecs.open('barcard.tex', 'w', encoding=OUTPUT_ENCODING) as barcard:
         for line in generatebarcard(drinks):
             barcard.write('%s\n' % line)
@@ -179,16 +206,39 @@ def makedrinks():
             mixingcard.write('%s\n' % line)
 
     # As we are having problems with utf8 and plain tex we use xetex as this has nooo problem
+    # with utf8
     # XeTeX is installed on imf computers...
     # Also xetex seems to have problems when called as a subprocess. Why i dont know.
-    # Use make instead?
+    # Use makefile instead.
     # subprocess.check_call(
     #     'xetex -output-driver="xdvipdfmx -q -E -p a4 -l" barcardmain.tex'.split())
     # subprocess.check_call(
     #     'latexmk -pdf mixingcardmain.tex'.split())
     # Wuhu! Done!
 
+def setupargparser():
+    global verbose
+    global sortbarcard
+    global drinksfilename
+
+    parser = argparse.ArgumentParser(
+        description='Make barcards')
+
+    parser.add_argument('filename')
+    parser.add_argument('-v','--verbose', action='store_true', default=False,
+        help='Do you want verbose output?')
+    parser.add_argument('-s','--sortbarcards', action='store_true',default=False,
+        help='Do you want barcards sorted?')
+
+    args = parser.parse_args()
+    drinksfilename = args.filename
+    verbose = args.verbose
+    sortbarcard = args.sortbarcards
+
+
+
 
 # Run the function if file is called directly
 if __name__ == '__main__':
+    setupargparser()
     makedrinks()
