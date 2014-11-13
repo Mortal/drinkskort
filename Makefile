@@ -1,4 +1,4 @@
 all:
-	python drinks.py drinks.txt;
+	python drinks.py vinterfest.txt;
 	xetex -output-driver="xdvipdfmx -q -E -p a4 -l" barcardmain.tex;
 	pdflatex mixingcardmain.tex;

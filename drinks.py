@@ -134,7 +134,7 @@ def generatebarcard(drinks):
 def generatemixingcard(drinks):
     # Do TeX-stuff
     yield r'\begin{tabular}{lllll}'
-    yield r'\toprule Navn & Sprut & Sodavand & Severing & Pris \\'
+    yield r'\toprule Navn & Sprut & Sodavand & Servering & Pris \\'
     yield r'\midrule'
 
     # Loop over all drinks
@@ -149,7 +149,7 @@ def generatemixingcard(drinks):
             drink=drink,
             ingredients=', '.join(' '.join(part for part in spirit.split('-'))
                                   for spirit in currentingredients['spirit']),
-            soda=' '.join(currentingredients.get('soda', [])),
+            soda=', '.join(currentingredients.get('soda', [])),
             other=' '.join(currentingredients['other']),
             price=currentingredients['price'],
             )
