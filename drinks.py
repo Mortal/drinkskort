@@ -30,6 +30,9 @@ OUTPUT_ENCODING = 'utf8'
 # Name of drinks file defining drinks. Default 'drinks.txt'
 drinksfilename = 'drinks.txt'
 
+# Verbose (Print warnings)
+verbose = True
+
 
 def readdrinks(drinksfile):
     drinks = []
@@ -76,11 +79,19 @@ def readdrinks(drinksfile):
         elif line.startswith('$'):
             currentprice = line[1:].strip()
             currentdrinkdict['price'] = currentprice
-
+        # Comment
+        elif line.startswith('#'):
+            pass
+        # Empty line
+        elif line.startswith('\n'):
+            pass
         # Unrecognized line.
         # Maybe we should print a warning (with line number)?
         else:
-            pass
+            if verbose:
+                print('Unrecognized line: ' + line.strip())
+            else:
+                pass
 
     return drinks
 
@@ -127,10 +138,10 @@ def generatemixingcard(drinks):
         drink = currentingredients['name']
         mixingcardformat = (
             u'{color}{drink} & {ingredients} & '
-            u'{soda} & {other} & {price} kr\\\\ \n'
+            u'{soda} & {other} & {price} kr\\\\\n'
         )
         mixingcardline = mixingcardformat.format(
-            color='\\rowcolor{Gray} ' if drinknumber % 2 == 0 else '',
+            color='\\rowcolor{Gray}%\n' if drinknumber % 2 == 0 else '',
             drink=drink,
             ingredients=', '.join(' '.join(part for part in spirit.split('-'))
                                   for spirit in currentingredients['spirit']),
@@ -179,14 +190,18 @@ def makedrinks():
             mixingcard.write('%s\n' % line)
 
     # As we are having problems with utf8 and plain tex we use xetex as this has nooo problem
+    # with utf8
     # XeTeX is installed on imf computers...
     # Also xetex seems to have problems when called as a subprocess. Why i dont know.
-    # Use make instead?
+    # Use makefile instead.
     # subprocess.check_call(
     #     'xetex -output-driver="xdvipdfmx -q -E -p a4 -l" barcardmain.tex'.split())
     # subprocess.check_call(
     #     'latexmk -pdf mixingcardmain.tex'.split())
     # Wuhu! Done!
+
+def setupargparser():
+    global verbositylevel
 
 
 # Run the function if file is called directly
