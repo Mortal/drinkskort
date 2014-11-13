@@ -14,6 +14,7 @@
 import codecs
 import subprocess
 import collections
+import argparse
 
 
 #####################
@@ -31,7 +32,10 @@ OUTPUT_ENCODING = 'utf8'
 drinksfilename = 'drinks.txt'
 
 # Verbose (Print warnings)
-verbose = True
+verbose = False
+
+# Sort barcards by price
+sortbarcard = False
 
 
 def readdrinks(drinksfile):
@@ -201,9 +205,28 @@ def makedrinks():
     # Wuhu! Done!
 
 def setupargparser():
-    global verbositylevel
+    global verbose
+    global sortbarcard
+    global drinksfilename
+
+    parser = argparse.ArgumentParser(
+        description='Make barcards')
+
+    parser.add_argument('filename')
+    parser.add_argument('-v','--verbose', action='store_true', default=False,
+        help='Do you want verbose output?')
+    parser.add_argument('-s','--sortbarcards', action='store_true',default=False,
+        help='Do you want barcards sorted?')
+
+    args = parser.parse_args()
+    drinksfilename = args.filename
+    verbose = args.verbose
+    sortbarcards = args.sortbarcards
+
+
 
 
 # Run the function if file is called directly
 if __name__ == '__main__':
+    setupargparser()
     makedrinks()
