@@ -181,6 +181,13 @@ def makedrinks():
 
 
     # Write to .tex file. Loop over the number of drinks.
+
+    if sortbarcard:
+        print('Sorting barcard ' + str(drinks))
+        price_sorted_drinks = sorted(drinks, key=lambda drink: drink['price'])
+        drinks = price_sorted_drinks
+        print(str(drinks))
+
     with codecs.open('barcard.tex', 'w', encoding=OUTPUT_ENCODING) as barcard:
         for line in generatebarcard(drinks):
             barcard.write('%s\n' % line)
@@ -221,7 +228,7 @@ def setupargparser():
     args = parser.parse_args()
     drinksfilename = args.filename
     verbose = args.verbose
-    sortbarcards = args.sortbarcards
+    sortbarcard = args.sortbarcards
 
 
 
