@@ -12,9 +12,9 @@ findes blandelisten.
 
 
 ** Kræver:
-Python > 3.2
-XeTeX
-pdfLaTeX
+* Python > 3.2
+* XeTeX
+* pdfLaTeX
 
 
 ** Filer:
@@ -23,35 +23,37 @@ pdfLaTeX
 - drinks.py (til at omdanne input til egenede lister)
 - barcardmain.tex (til drinkskort)
 - mixingcardmain.tex (til blandeliste)
-- <input>
+- example.txt (inputfil med forklaringer)
+- drinks.txt (standard input)
+- vinterfest.txt (inputfil fra vinterfesten 2014)
 
 
 ** Anvendelse:
 Scriptet kaldes ved at skrive en af følgende kommandoer i en terminal.
 
-> make
+* make
 --------> Kører scriptet med standard sortering (alfabetisk på
           blandelisten og efter pris på drinkskortet) på standard
 	  input (som er drinks.txt).
 
-> make fest=vinterfest
+* make fest=vinterfest
 --------> Samme som ovenfor blot på filen vinterfest.txt med outputtet
           bar_vinterfest.pdf og mixing_vinterfest.pdf.
 	    ...  Kan selvfølgelig også være en anden fest ;)
 
-> make sort=unsorted fest=vinterfest
+* make sort=unsorted fest=vinterfest
 --------> Fjerner sorteringen efter pris på drinkskortet. Kan også
           køres uden fest=...
 
-> make test fest=karneval
+* make test fest=karneval
 --------> Tester inputfilen uden at producere pdf-filer. Der kommer
           en besked hvis nogle af de indtastede linjer ikke kan
 	  genkendes.
 
-> make clean
+* make clean
 --------> Fjerner de midlertidige filer.
 
-> make clean-deep
+* make clean-deep
 --------> Fjerner de midlertidige filer OG pdf-filerne.
 
 
