@@ -1,12 +1,4 @@
-# Dette er en en kommentar og den vil blive ignoreret
-# Første tegn i hver linje fortæller typen af ingridiensen
-# = Betyder navnet på drinken
-# =? betyder hemmelig drink der kun kommer på barkort)
-# - skal foran spiritus mængden af spiritus og typen. dvs der kan komme to - i samme sætning
-# -- skal foran sodavand/juice
-# ! skal foran hvad det serveres i
-# $ skal foran pris. Undlad enhed -- kr skrives af TeX
-# tomme linjer ignoreres
+# Vinterfest 2014
 
 = Hola
 $ 15

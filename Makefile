@@ -1,10 +1,6 @@
 # Makefile to create the bar- and mixing cards.                      \
                                                                      \
-Usage: make fest=INPUT  to generate the pdf's                        \
-       make clean           to remove output files (not incl pdf's)  \
-       make clean-deep      to remove all output files               \
-Example:                                                             \
-       make fest=vinterfest
+Usage is described in README.md
 
 #
 # Generating output
