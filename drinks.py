@@ -40,6 +40,7 @@ def readdrinks(drinksfile):
         # Get the current drink
         if line.startswith('='):
             name = line[1:].strip()
+            alternative = ''
 
             # Sort into secret and normal drinks
             if name.startswith('?'):
@@ -47,9 +48,17 @@ def readdrinks(drinksfile):
                 name = name[1:].strip()
             else:
                 secret = False
+            if '=' in name:
+                # Drink has alternative name
+                names = name.split('=')
+                name = names[0].strip()
+                alternative = names[1].strip()
+            print(alternative)
+            print(name)
 
             currentdrinkdict = {
                 'name': name,
+                'alternative': alternative,
                 'soda': [],
                 'spirit': [],
                 'other': [],

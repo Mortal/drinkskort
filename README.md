@@ -12,7 +12,7 @@ findes blandelisten.
 
 
 ** Kræver:
-* Python > 3.2
+* Python > 3.2 (eller 2.6)
 * XeTeX
 * pdfLaTeX
 
