@@ -9,19 +9,25 @@ Usage is described in README.md
 # Defaults
 fest ?= drinks
 sort ?= sorted
+alt  ?= nej
 
 # Run it all!
 all: $(sort) bar_$(fest).pdf mixing_$(fest).pdf
 
 # Generate the lists
 sorted: drinks.py $(fest).txt
+ifeq ($(alt),ja)
+	python3 $< -s -a $(fest).txt
+else
 	python3 $< -s $(fest).txt
+endif
 
 unsorted: drinks.py $(fest).txt
+ifeq ($(alt),ja)
+	python3 $< -a $(fest).txt
+else
 	python3 $< $(fest).txt
-
-alternative: drinks.py $(fest).txt
-	python $< -a $(fest).txt
+endif
 
 # Create the barcards
 bar_$(fest).pdf: drinks.py $(fest).txt
