@@ -122,9 +122,9 @@ def generatebarcard(drinks):
 
         for other in currentingredients['other']:
             if other.lower() == u'drinksglas':
-                yield '\t\t' + r'\serveret I et %s med is' % other
+                yield '\t\t' + r'\serveret I et %s med is' % other.lower()
             elif other.lower() == u'fadølsglas':
-                yield '\t\t' + r'\serveret I et %s med is' % other
+                yield '\t\t' + r'\serveret I et %s med is' % other.lower()
             else:
                 yield '\t\t' + r'\serveret %s' % other
             yield ''
