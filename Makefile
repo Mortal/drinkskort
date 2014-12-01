@@ -21,15 +21,15 @@ unsorted: drinks.py $(fest).txt
 	python3 $< $(fest).txt
 
 # Create the barcards
-bar_$(fest).pdf:
+bar_$(fest).pdf: drinks.py $(fest).txt
 	xetex -jobname=bar_$(fest) -output-driver="xdvipdfmx -q -E -p a4 -l" barcardmain.tex
 
 # Create the mixing card
-mixing_$(fest).pdf:
+mixing_$(fest).pdf: drinks.py $(fest).txt
 	pdflatex -jobname=mixing_$(fest) mixingcardmain.tex
 
 # Test the input file
-test: drinks.py
+test: drinks.py $(fest).txt
 	python $< -v $(fest).txt
 
 
