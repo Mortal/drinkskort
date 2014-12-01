@@ -31,6 +31,9 @@ verbose = False
 # Sort barcards by price
 sortbarcard = False
 
+# Alternative names on mixingcard
+alternativenames = False
+
 
 def readdrinks(drinksfile):
     drinks = []
@@ -48,13 +51,12 @@ def readdrinks(drinksfile):
                 name = name[1:].strip()
             else:
                 secret = False
+
             if '=' in name:
                 # Drink has alternative name
                 names = name.split('=')
                 name = names[0].strip()
                 alternative = names[1].strip()
-            print(alternative)
-            print(name)
 
             currentdrinkdict = {
                 'name': name,
@@ -149,6 +151,9 @@ def generatemixingcard(drinks):
     # Loop over all drinks
     for drinknumber, currentingredients in enumerate(drinks):
         drink = currentingredients['name']
+        if alternativenames:
+            if currentingredients['alternative'] is not '':
+                drink += ' (' + currentingredients['alternative'] + ')'
         mixingcardformat = (
             u'{color}{drink} & {ingredients} & '
             u'{soda} & {other} & {price} kr\\\\\n'
@@ -161,7 +166,7 @@ def generatemixingcard(drinks):
             soda=', '.join(currentingredients.get('soda', [])),
             other=' '.join(currentingredients['other']).capitalize(),
             price=currentingredients['price'],
-            )
+        )
 
         yield mixingcardline
 
@@ -201,6 +206,7 @@ def setupargparser():
     global verbose
     global sortbarcard
     global drinksfilename
+    global alternativenames
 
     parser = argparse.ArgumentParser(
         description='Make barcards')
@@ -208,13 +214,17 @@ def setupargparser():
     parser.add_argument('filename')
     parser.add_argument('-v', '--verbose', action='store_true', default=False,
                         help='Do you want verbose output?')
-    parser.add_argument('-s', '--sortbarcards', action='store_true', default=False,
-                        help='Do you want barcards sorted?')
+    parser.add_argument('-s', '--sortbarcards', action='store_true',
+                        default=False, help='Do you want barcards sorted?')
+    parser.add_argument('-a', '--alternative',
+                        action='store_true', defalt=False,
+                        help='Do you want alternative names on mixingcard?')
 
     args = parser.parse_args()
     drinksfilename = args.filename
     verbose = args.verbose
     sortbarcard = args.sortbarcards
+    alternativenames = args.alternative
 
 
 # Run the function if file is called directly

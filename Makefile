@@ -6,7 +6,7 @@ Usage is described in README.md
 # Generating output
 #
 
-# Defaults 
+# Defaults
 fest ?= drinks
 sort ?= sorted
 
@@ -19,6 +19,9 @@ sorted: drinks.py $(fest).txt
 
 unsorted: drinks.py $(fest).txt
 	python3 $< $(fest).txt
+
+alternative: drinks.py $(fest).txt
+	python $< -a $(fest).txt
 
 # Create the barcards
 bar_$(fest).pdf: drinks.py $(fest).txt

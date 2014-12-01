@@ -18,13 +18,13 @@ Faktisk bliver alt hvor der ikke står =,-,! eller $ ignoreret.
 ! drinksglas
 $ 15
 
-= Arandbil
+= Arandbil = Brandbil
 - 2 cl - Jägermaister
 -- Rød sodavand
 ! drinksglas
 $ 15
 
-= Filur
+= Filur = Bilur
 - 2 cl - Vodka
 - lidt granedine
 -- Appelsinjuice
@@ -41,7 +41,7 @@ $ 15
 $ 50
 
 
-= Crandbil med udrykning
+= Crandbil med udrykning = Brandbil med udrykning
 - 2 cl - Jägermaister
 - 2 cl - Vodka
 -- Rød sodavand
