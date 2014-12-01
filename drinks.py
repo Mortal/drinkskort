@@ -217,7 +217,7 @@ def setupargparser():
     parser.add_argument('-s', '--sortbarcards', action='store_true',
                         default=False, help='Do you want barcards sorted?')
     parser.add_argument('-a', '--alternative',
-                        action='store_true', defalt=False,
+                        action='store_true', default=False,
                         help='Do you want alternative names on mixingcard?')
 
     args = parser.parse_args()
