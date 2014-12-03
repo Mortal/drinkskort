@@ -63,7 +63,8 @@ def readdrinks(drinksfile):
                 'alternative': alternative,
                 'soda': [],
                 'spirit': [],
-                'other': [],
+                'served': '',
+                'servedbarcard': '',
                 'price': '',
                 'secret': secret,
             }
@@ -79,10 +80,16 @@ def readdrinks(drinksfile):
             currentspirit = line[1:].strip()
             currentdrinkdict['spirit'].append(currentspirit)
 
-        # Other
+        # served
         elif line.startswith('!'):
-            currentother = line[1:].strip()
-            currentdrinkdict['other'].append(currentother)
+            currentserved = line[1:].strip()
+            currentdrinkdict['servedbarcard'] = currentserved
+            if '!' in currentserved:
+                ser = currentserved.split('!')
+                currentserved = ser[0].strip()
+                barcardserved = ser[1].strip()
+                currentdrinkdict['servedbarcard'] = barcardserved
+            currentdrinkdict['served'] = currentserved
 
         # Price
         elif line.startswith('$'):
@@ -131,14 +138,15 @@ def generatebarcard(drinks):
         for soda in currentingredients['soda']:
             yield '\t\t& %s \og' % soda
 
-        for other in currentingredients['other']:
-            if other.lower() == u'drinksglas':
-                yield '\t\t' + r'\serveret I et %s med is' % other.lower()
-            elif other.lower() == u'fadølsglas':
-                yield '\t\t' + r'\serveret I et %s med is' % other.lower()
-            else:
-                yield '\t\t' + r'\serveret %s' % other
-            yield ''
+        # for served in currentingredients['served']:
+        served = currentingredients['served']
+        if served.lower() == u'drinksglas':
+            yield '\t\t' + r'\serveret I et %s med is' % served.lower()
+        elif served.lower() == u'fadølsglas':
+            yield '\t\t' + r'\serveret I et %s med is' % served.lower()
+        else:
+            yield '\t\t' + r'\serveret %s' % served
+        yield ''
 
 
 def generatemixingcard(drinks):
@@ -156,7 +164,7 @@ def generatemixingcard(drinks):
                 drink += ' (' + currentingredients['alternative'] + ')'
         mixingcardformat = (
             u'{color}{drink} & {ingredients} & '
-            u'{soda} & {other} & {price} kr\\\\\n'
+            u'{soda} & {served} & {price} kr\\\\\n'
         )
         mixingcardline = mixingcardformat.format(
             color='\\rowcolor{Gray}%\n' if drinknumber % 2 == 0 else '',
@@ -164,7 +172,7 @@ def generatemixingcard(drinks):
             ingredients=', '.join(' '.join(part for part in spirit.split('-'))
                                   for spirit in currentingredients['spirit']),
             soda=', '.join(currentingredients.get('soda', [])),
-            other=' '.join(currentingredients['other']).capitalize(),
+            served=currentingredients['servedbarcard'].capitalize(),
             price=currentingredients['price'],
         )
 
