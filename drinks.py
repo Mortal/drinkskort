@@ -15,7 +15,6 @@ from __future__ import unicode_literals
 
 import codecs
 import argparse
-import textwrap
 
 
 #####################
@@ -24,18 +23,6 @@ import textwrap
 
 # Encoding is always utf8!
 ENCODING = 'utf8'
-
-# Name of drinks file defining drinks. Default 'drinks.txt'
-drinksfilename = 'drinks.txt'
-
-# Verbose (Print warnings)
-verbose = False
-
-# Sort barcards by price
-sortbarcard = False
-
-# Alternative names on mixingcard
-alternativenames = False
 
 columns_modes = {
     'old': [
@@ -53,10 +40,9 @@ columns_modes = {
         ('Sodavand', 'soda'),
     ],
 }
-columns_mode = 'new'
 
 
-def readdrinks(drinksfile):
+def readdrinks(drinksfile, verbose):
     drinks = []
 
     # Read the file line by line
@@ -170,7 +156,7 @@ def generatebarcard(drinks):
         yield ''
 
 
-def generatemixingcard(drinks, columns):
+def generatemixingcard(drinks, columns, use_alternatives):
     """
     `columns` is a list of (name, key)-tuples where key is one of
     (name, ingredients, soda, served, price),
@@ -186,7 +172,7 @@ def generatemixingcard(drinks, columns):
     for drinknumber, currentingredients in enumerate(drinks):
         name = currentingredients['name']
         alternative = currentingredients['alternative']
-        if alternative and alternativenames:
+        if alternative and use_alternatives:
             name = '%s (%s)' % (name, alternative)
 
         color = '\\rowcolor{Gray}%\n' if drinknumber % 2 == 0 else ''
@@ -223,12 +209,12 @@ def generatemixingcard(drinks, columns):
 #####################################
 # The function which does the magic #
 #####################################
-def makedrinks():
-    with codecs.open(drinksfilename, 'r', encoding=ENCODING) as drinksfile:
-        drinks = readdrinks(drinksfile)
+def makedrinks(filename, verbose, sortbarcards, alternative, columns):
+    with codecs.open(filename, 'r', encoding=ENCODING) as drinksfile:
+        drinks = readdrinks(drinksfile, verbose)
 
     # Sort the drinks on the barcard by price
-    if sortbarcard:
+    if sortbarcards:
         price_sorted_drinks = sorted(drinks, key=lambda drink: drink['price'])
         drinks = price_sorted_drinks
 
@@ -239,24 +225,18 @@ def makedrinks():
     # Sort the drinks on the micing card by name
     drinks_sorted = sorted(drinks, key=lambda drink: drink['name'])
 
-    columns = columns_modes[columns_mode]
+    columns = columns_modes[columns]
 
     # Open file for the mixing card ("blandeliste")
     with codecs.open('mixing.tex', 'w', encoding=ENCODING) as mixingcard:
-        for line in generatemixingcard(drinks_sorted, columns):
+        for line in generatemixingcard(drinks_sorted, columns, alternative):
             mixingcard.write('%s\n' % line)
 
 
 ######################################
 # Parsing of arguments to the script #
 ######################################
-def setupargparser():
-    global verbose
-    global sortbarcard
-    global drinksfilename
-    global alternativenames
-    global columns_mode
-
+def main():
     parser = argparse.ArgumentParser(
         description='Make barcards')
 
@@ -274,14 +254,9 @@ def setupargparser():
                         help='Order of columns in mixing card')
 
     args = parser.parse_args()
-    drinksfilename = args.filename
-    verbose = args.verbose
-    sortbarcard = args.sortbarcards
-    alternativenames = args.alternative
-    columns_mode = args.columns
+    makedrinks(**vars(args))
 
 
 # Run the function if file is called directly
 if __name__ == '__main__':
-    setupargparser()
-    makedrinks()
+    main()
