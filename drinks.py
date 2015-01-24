@@ -172,23 +172,35 @@ def generatemixingcard(drinks):
 
     # Loop over all drinks
     for drinknumber, currentingredients in enumerate(drinks):
-        drink = currentingredients['name']
-        if alternativenames:
-            if currentingredients['alternative'] is not '':
-                drink += ' (' + currentingredients['alternative'] + ')'
-        mixingcardformat = (
-            u'{color}{drink} & {ingredients} & '
-            u'{soda} & {served} & {price} kr\\\\\n'
+        name = currentingredients['name']
+        alternative = currentingredients['alternative']
+        if alternative:
+            name = '%s (%s)' % (name, alternative)
+
+        color = '\\rowcolor{Gray}%\n' if drinknumber % 2 == 0 else ''
+
+        NEWLINE = r'\\' + '\n'
+        # mixingcardformat = '{color}%s' + NEWLINE
+        mixingcardformat = ' & '.join('{%s}' % key for name, key in columns)
+
+        ingredients = ', '.join(' '.join(part for part in spirit.split('-'))
+                                for spirit in currentingredients['spirit'])
+
+        soda = ', '.join(currentingredients.get('soda', []))
+
+        served = currentingredients['servedbarcard'].capitalize()
+
+        price = currentingredients['price'] + ' kr'
+
+        cells = mixingcardformat.format(
+            name=name,
+            ingredients=ingredients,
+            soda=soda,
+            served=served,
+            price=price,
         )
-        mixingcardline = mixingcardformat.format(
-            color='\\rowcolor{Gray}%\n' if drinknumber % 2 == 0 else '',
-            drink=drink,
-            ingredients=', '.join(' '.join(part for part in spirit.split('-'))
-                                  for spirit in currentingredients['spirit']),
-            soda=', '.join(currentingredients.get('soda', [])),
-            served=currentingredients['servedbarcard'].capitalize(),
-            price=currentingredients['price'],
-        )
+
+        mixingcardline = color + cells + NEWLINE
 
         yield mixingcardline
 
