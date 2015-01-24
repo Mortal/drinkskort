@@ -241,16 +241,17 @@ def main():
         description='Make barcards')
 
     parser.add_argument('filename')
-    parser.add_argument('-v', '--verbose', action='store_true', default=False,
+    parser.add_argument('-v', '--verbose',
+                        action='store_true',
                         help='Do you want verbose output?')
-    parser.add_argument('-s', '--sortbarcards', action='store_true',
-                        default=False, help='Do you want barcards sorted?')
+    parser.add_argument('-s', '--sortbarcards',
+                        action='store_true',
+                        help='Do you want barcards sorted?')
     parser.add_argument('-a', '--alternative',
-                        action='store_true', default=False,
+                        action='store_true',
                         help='Do you want alternative names on mixingcard?')
     parser.add_argument('-c', '--columns',
-                        choices=sorted(columns_modes.keys()),
-                        default='new',
+                        choices=sorted(columns_modes.keys()), default='new',
                         help='Order of columns in mixing card')
 
     args = parser.parse_args()
