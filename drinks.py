@@ -168,7 +168,7 @@ def generatemixingcard(drinks, columns):
     for drinknumber, currentingredients in enumerate(drinks):
         name = currentingredients['name']
         alternative = currentingredients['alternative']
-        if alternative:
+        if alternative and alternativenames:
             name = '%s (%s)' % (name, alternative)
 
         color = '\\rowcolor{Gray}%\n' if drinknumber % 2 == 0 else ''
