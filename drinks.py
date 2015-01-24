@@ -152,20 +152,14 @@ def generatebarcard(drinks):
         yield ''
 
 
-def generatemixingcard(drinks):
+def generatemixingcard(drinks, columns):
+    """
+    `columns` is a list of (name, key)-tuples where key is one of
+    (name, ingredients, soda, served, price),
+    and name is the descriptive name to put in column headers.
+    """
     # Do TeX-stuff
     yield r'\begin{tabular}{lllll}'
-    # Navn, pris, servering, sprut, sodavand
-    COLUMNS = textwrap.dedent("""
-        Navn name
-        Sprut ingredients
-        Sodavand soda
-        Servering served
-        Pris price
-    """)
-    columns = [
-        line.split() for line in COLUMNS.splitlines() if line
-    ]
 
     yield r'\toprule %s \\' % ' & '.join(name for name, key in columns)
     yield r'\midrule'
@@ -227,9 +221,20 @@ def makedrinks():
     # Sort the drinks on the micing card by name
     drinks_sorted = sorted(drinks, key=lambda drink: drink['name'])
 
+    COLUMNS = textwrap.dedent("""
+        Navn name
+        Sprut ingredients
+        Sodavand soda
+        Servering served
+        Pris price
+    """)
+    columns = [
+        line.split() for line in COLUMNS.splitlines() if line
+    ]
+
     # Open file for the mixing card ("blandeliste")
     with codecs.open('mixing.tex', 'w', encoding=ENCODING) as mixingcard:
-        for line in generatemixingcard(drinks_sorted):
+        for line in generatemixingcard(drinks_sorted, columns):
             mixingcard.write('%s\n' % line)
 
 
