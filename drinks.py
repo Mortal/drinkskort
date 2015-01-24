@@ -37,6 +37,24 @@ sortbarcard = False
 # Alternative names on mixingcard
 alternativenames = False
 
+columns_modes = {
+    'old': [
+        ('Navn', 'name'),
+        ('Sprut', 'ingredients'),
+        ('Sodavand', 'soda'),
+        ('Servering', 'served'),
+        ('Pris', 'price'),
+    ],
+    'new': [
+        ('Navn', 'name'),
+        ('Pris', 'price'),
+        ('Servering', 'served'),
+        ('Sprut', 'ingredients'),
+        ('Sodavand', 'soda'),
+    ],
+}
+columns_mode = 'new'
+
 
 def readdrinks(drinksfile):
     drinks = []
@@ -221,16 +239,7 @@ def makedrinks():
     # Sort the drinks on the micing card by name
     drinks_sorted = sorted(drinks, key=lambda drink: drink['name'])
 
-    COLUMNS = textwrap.dedent("""
-        Navn name
-        Sprut ingredients
-        Sodavand soda
-        Servering served
-        Pris price
-    """)
-    columns = [
-        line.split() for line in COLUMNS.splitlines() if line
-    ]
+    columns = columns_modes[columns_mode]
 
     # Open file for the mixing card ("blandeliste")
     with codecs.open('mixing.tex', 'w', encoding=ENCODING) as mixingcard:
@@ -246,6 +255,7 @@ def setupargparser():
     global sortbarcard
     global drinksfilename
     global alternativenames
+    global columns_mode
 
     parser = argparse.ArgumentParser(
         description='Make barcards')
@@ -258,12 +268,17 @@ def setupargparser():
     parser.add_argument('-a', '--alternative',
                         action='store_true', default=False,
                         help='Do you want alternative names on mixingcard?')
+    parser.add_argument('-c', '--columns',
+                        choices=sorted(columns_modes.keys()),
+                        default='new',
+                        help='Order of columns in mixing card')
 
     args = parser.parse_args()
     drinksfilename = args.filename
     verbose = args.verbose
     sortbarcard = args.sortbarcards
     alternativenames = args.alternative
+    columns_mode = args.columns
 
 
 # Run the function if file is called directly
