@@ -15,6 +15,7 @@ from __future__ import unicode_literals
 
 import codecs
 import argparse
+import textwrap
 
 
 #####################
@@ -154,8 +155,19 @@ def generatebarcard(drinks):
 def generatemixingcard(drinks):
     # Do TeX-stuff
     yield r'\begin{tabular}{lllll}'
-    yield r'\toprule \textbf{Navn} & \textbf{Sprut} & \textbf{Sodavand}%'
-    yield r'& \textbf{Servering} & \textbf{Pris} \\'
+    # Navn, pris, servering, sprut, sodavand
+    COLUMNS = textwrap.dedent("""
+        Navn name
+        Sprut ingredients
+        Sodavand soda
+        Servering served
+        Pris price
+    """)
+    columns = [
+        line.split() for line in COLUMNS.splitlines() if line
+    ]
+
+    yield r'\toprule %s \\' % ' & '.join(name for name, key in columns)
     yield r'\midrule'
 
     # Loop over all drinks
