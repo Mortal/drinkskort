@@ -10,24 +10,23 @@ Usage is described in README.md
 fest ?= drinks
 sort ?= sorted
 alt  ?= nej
+columns ?= new
+
+ifeq ($(alt),nej)
+    alt_arg :=
+else
+    alt_arg := -a
+endif
+
+ifeq ($(sort),sorted)
+    sort_arg := -s
+else
+    sort_arg :=
+endif
 
 # Run it all!
-all: $(sort) bar_$(fest).pdf mixing_$(fest).pdf
-
-# Generate the lists
-sorted: drinks.py $(fest).txt
-ifeq ($(alt),ja)
-	python3 $< -s -a $(fest).txt
-else
-	python3 $< -s $(fest).txt
-endif
-
-unsorted: drinks.py $(fest).txt
-ifeq ($(alt),ja)
-	python3 $< -a $(fest).txt
-else
-	python3 $< $(fest).txt
-endif
+all: bar_$(fest).pdf mixing_$(fest).pdf
+	python3 $< $(sort_arg) $(alt_arg) -c $(columns) $(fest).txt
 
 # Create the barcards
 bar_$(fest).pdf: drinks.py $(fest).txt
