@@ -1,6 +1,7 @@
 # Vinterfest 2014
+# Der mangler alternative navne for mange drinks...
 
-= Hola
+= Hola = Champagnebrus
 $ 15
 - 2 cl - Cuba Caramel
 - 2 cl - Lime  

@@ -27,6 +27,8 @@ endif
 # Run it all!
 all: bar_$(fest).pdf mixing_$(fest).pdf
 
+fresh: clean-deep all
+
 # Create the barcards
 bar_$(fest).pdf: barcard.tex barcardmain.tex
 	xetex -jobname=bar_$(fest) -output-driver="xdvipdfmx -q -E -p a4 -l" barcardmain.tex

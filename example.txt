@@ -1,27 +1,29 @@
 # Dette er en en kommentar og den vil blive ignoreret
-# Første tegn i hver linje fortæller typen af ingridiensen
-# = Betyder navnet på drinken
-# =? betyder hemmelig drink der kun kommer på barkort)
-# - skal foran spiritus mængden af spiritus og typen. dvs der kan komme to - i samme sætning
-# -- skal foran sodavand/juice
-# ! skal foran hvad det serveres i
-# Hvis man vil have forskellig tekst med servering på mixkort kan man lave
-# to ! i samme linje. Efter den første kan man da skrive hvad der skal stå på
-# barkortet, og efter den anden kan man skrive hvad der skal stå på mixkort.
-# $ skal foran pris. Undlad enhed -- kr skrives af TeX
-# tomme linjer ignoreres
+#  -> Hjælpeteksten er i BRUGSANVISNING.txt, men er gengivet her for
+#     nemhedens skyld
 
-Faktisk bliver alt hvor der ikke står =,-,! eller $ ignoreret. dvs denne linje bliver ignoreret
+# Format af inputfilen:
+# *   Første tegn i hver linje fortæller typen af ingrediensen
+# *   # Angiver en kommentar - og er dermed ikke en ingrediens ;)
+# *   = Betyder navnet på drinken
+# *   Hvis der er et ekstra = i navnelinjen, tolkes det andet navn som
+#     et alternativt navn.
+# *   =? betyder hemmelig drink der kun kommer på barkort)
+# *   - skal foran spiritusmængden og -typen. Der forekommer altså
+#     typisk to - i samme linje
+# *   -- skal foran sodavand/juice
+# *   ! skal foran hvad det serveres i
+# *   Der kan angives forskellig serveringstekst ved at lave to ! i
+#     samme linje. Efter den første skrives teksten til barkortet, og
+#     efter den anden til blandelisten.
+# *   $ skal foran pris. Undlad enhed -- kr skrives af TeX
+# *   Tomme linjer ignoreres
+# *   Faktisk bliver alt hvor der ikke står =,-,! eller $ ignoreret.
 
-# Eksempler:
 
-=? Brandbil
-- 2 cl - Jägermaister
--- Rød sodavand
-! drinksglas
-$ 15
+# Eksempler (på ikke nødvendigvis korrekte drinks):
 
-= Arandbil = Brandbil
+= Brandbil
 - 2 cl - Jägermaister
 -- Rød sodavand
 ! drinksglas
@@ -43,10 +45,11 @@ $ 15
 ! I et 5 cl shotsglas ! 5 cl shotsglas lagdelt
 $ 50
 
-
 = Crandbil med udrykning = Brandbil med udrykning
 - 2 cl - Jägermaister
 - 2 cl - Vodka
 -- Rød sodavand
 ! fadølsglas ! Fadølsglas m. citronskive
 $ 25
+
+En forkert linje der ikke starter med et tegn...
