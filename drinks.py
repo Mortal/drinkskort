@@ -165,7 +165,8 @@ def generatemixingcard(drinks, columns, use_alternatives):
     # Do TeX-stuff
     yield r'\begin{tabular}{lllll}'
 
-    yield r'\toprule %s \\' % ' & '.join(name for name, key in columns)
+    yield r'\toprule %s \\' % ' & '.join('\\bfseries ' + name for
+                                         name, key in columns)
     yield r'\midrule'
 
     # Loop over all drinks
