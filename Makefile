@@ -25,9 +25,10 @@ else
 endif
 
 # Run it all!
+default: clean-deep all
+
 all: bar_$(fest).pdf mixing_$(fest).pdf
 
-fresh: clean-deep all
 
 # Create the barcards
 bar_$(fest).pdf: barcard.tex barcardmain.tex
