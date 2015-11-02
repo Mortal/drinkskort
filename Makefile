@@ -9,8 +9,6 @@ else
   PYTHON = python3
 endif
 
-PYTHON=python
-
 #####################
 # Generating output #
 #####################
