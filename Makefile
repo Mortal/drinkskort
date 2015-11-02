@@ -2,10 +2,18 @@
                                                                      \
 Usage is described in BRUGSANVISNING.txt (in Danish)
 
+# Use Python 3 it it exists, else use Python 2.
+ifeq ($(shell which python3),)
+  PYTHON = python
+else
+  PYTHON = python3
+endif
+
+PYTHON=python
+
 #####################
 # Generating output #
 #####################
-
 # Defaults
 fest ?= drinks
 sort ?= sorted
@@ -40,7 +48,7 @@ mixing_$(fest).pdf: mixing.tex mixingcardmain.tex
 
 # Generate the tables using python magic!
 barcard.tex: drinks.py $(fest).txt
-	python3 $< $(sort_arg) $(alt_arg) -c $(columns) $(fest).txt
+	$(PYTHON) $< $(sort_arg) $(alt_arg) -c $(columns) $(fest).txt
 
 
 ###########
@@ -49,7 +57,7 @@ barcard.tex: drinks.py $(fest).txt
 
 # See if there is any errors in the provided input file...
 test: drinks.py $(fest).txt
-	python $< -v $(fest).txt
+	$(PYTHON) $< -v $(fest).txt
 
 
 
