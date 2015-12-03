@@ -23,6 +23,13 @@ De forskellige options kan selvfølgelig kombineres på kryds og tværs.
           bar_vinterfest.pdf og mixing_vinterfest.pdf.
 	    ...  Kan selvfølgelig også være en anden fest ;)
 
+* make alt=ja fest=vinterfest
+--------> Angiver alternative dinksnavne i parantes på blandelisten
+	  (find 'Hola'). Dette er smart, hvis man har en fest hvor de
+	  almindelige drinks får temanavne. Pas dog på med bredden af
+	  skemaet (i det hele taget er LilleFuFaldDødOm en træls drink
+	  for layoutet.....)!
+
 * make sort=nej fest=vinterfest
 --------> Fjerner sorteringen efter pris på drinkskortet, hvorved der
 	  sorteres alfabetisk. Kan selvfølgelig også køres uden fest=...
@@ -30,13 +37,6 @@ De forskellige options kan selvfølgelig kombineres på kryds og tværs.
 * make columns=old fest=vinterfest
 --------> Laver blandelisten med "den gamle" rækkefølge af søjlerne
 	  (se nedenfor).
-
-* make alt=ja fest=vinterfest
---------> Angiver alternative dinksnavne i parantes på blandelisten
-	  (find 'Hola'). Dette er smart, hvis man har en fest hvor de
-	  almindelige drinks får temanavne. Pas dog på med bredden af
-	  skemaet (i det hele taget er LilleFuFaldDødOm en træls drink
-	  for layoutet.....)!
 
 * make test fest=example
 --------> Tester inputfilen uden at producere pdf-filer. Der kommer
