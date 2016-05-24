@@ -139,12 +139,12 @@ $ 45
 ! drinksglas
 $ 15
 
-= SpiriT uden tøjler
-- 2 cl - Southern Comfort
-- 2 cl - Jägermeister
+= Styx
+- 2 cl - Pisang Ambon
+- 2 cl - Lime
 -- Sprite
 ! drinksglas
-$ 25
+$ 15
 
 = Tequila Sunrise
 - 2 cl - Tequila
