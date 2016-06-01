@@ -121,7 +121,7 @@ $ 25
 - 2 cl - Lime
 -- Sprite
 ! fadølsglas
-$ 55
+$ 60
 
 = Long Island Iced Tea
 - 2 cl - Gin
