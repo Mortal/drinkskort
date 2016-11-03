@@ -1,0 +1,180 @@
+# Standardudvalget af drinks
+
+= Alabama Slammer
+- 2 cl - Southern Comfort
+- 2 cl - Vodka
+- Grenadine
+-- Appelsinjuice
+! drinksglas
+$ 35
+
+= Bear Grills
+- 2 cl - Pisang Ambon
+-- Appelsinjuice
+! drinksglas
+$ 20
+
+= Brandbil
+- 2 cl - Jägermeister
+-- Rød sodavand
+! drinksglas
+$ 20
+
+=? Brandbil med udrykning
+- 2 cl - Jägermeister
+- 2 cl - Vodka
+-- Rød sodavand
+! drinksglas
+$ 35
+
+= Champagnebrus
+- 2 cl - Cuba caramel
+- 2 cl - Lime
+-- Lemon
+! drinksglas
+$ 20
+
+=? Chuck Norris
+- 2 cl - Gammel Dansk
+- 2 cl - Tequila
+- 2 cl - Gin
+- 2 cl - Lime
+! drinksglas
+$ 45
+
+= The Lemmy
+- 2 cl - Whiskey
+-- Cola
+! drinksglas
+$ 20
+
+= Filur
+- 2 cl - Vodka
+- 2 cl - Gin
+-- Appelsinjuice
+-- Rød sodavand
+! drinksglas
+$ 35
+
+= FUAN Love
+- 2 cl - Southern Comfort
+- 2 cl - Hindbærvodka
+- Lidt grenadine
+- Citronskive
+-- Sprite
+! drinksglas
+$ 35
+
+=? Galliano Hotshot
+- 2 cl - Galliano
+- 2 cl - Kaffe
+- Flødeskum
+! Lagdelt i 5 cl glas
+$ 20
+
+= Hyldehans
+- 2 cl - Vodka
+- 4 cl - Hyldeblomstsaft
+-- Danskvand
+! drinksglas
+$ 20
+
+= Isbjørn
+- 2 cl - Vodka
+-- Sprite
+-- Lidt blå curacao
+! drinksglas
+$ 20
+
+= Jim og Lennon
+- 2 cl - Gin
+-- Lemon
+! drinksglas
+$ 20
+
+=? Jägerbomb
+- 2 cl - Jägermeister
+-- Energidrik
+! SPECIEL
+$ 20
+
+= Karamælk
+- 2 cl - Cuba Caramel
+- 2 cl - Kahlua
+-- Mælk
+! drinksglas
+$ 35
+
+= KongFU
+- 2 cl - Jägermeister
+- 2 cl - Pisang Ambon
+-- Cola
+! drinksglas
+$ 35
+
+=? Lille FU fald død om
+- 2 cl - Gin
+- 2 cl - Vodka
+- 2 cl - Rom
+- 2 cl - Tequila
+- 2 cl - Pisang Ambon
+- 2 cl - Lime
+-- Sprite
+! fadølsglas
+$ 75
+
+= Long Island Iced Tea
+- 2 cl - Gin
+- 2 cl - Vodka
+- 2 cl - Rom
+- 2 cl - Tequila
+-- Cola
+-- Lemon
+! fadølsglas
+$ 65
+
+= SpiriT
+- 2 cl - Southern Comfort
+-- Sprite
+! drinksglas
+$ 20
+
+= Styx
+- 2 cl - Pisang Ambon
+- 2 cl - Lime
+-- Sprite
+! drinksglas
+$ 20
+
+= Tequila Sunrise
+- 2 cl - Tequila
+-- Appensinjuice
+-- Grenadine
+! drinksglas
+$ 20
+
+= Tutte
+- 2 cl - Hindbærvodka
+-- Sprite
+-- Lidt grenadine
+! drinksglas
+$ 20
+
+= White Russian
+- 2 cl - Vodka
+- 2 cl - Kahlua
+-- Mælk
+! drinksglas
+$ 35
+
+= Ævle Bævle
+- 2 cl - Vodka
+-- Æblejuice
+! drinksglas
+$ 20
+
+= Vanilla Ice
+- 2 cl - Galliano
+-- Mælk
+! drinksglas
+$ 20
