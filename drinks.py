@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
+'''
+Script for handling drinks
 
-######################################
-# Scipt for handling drinks          #
-#                                    #
-# Made by:  Mads Fabricius Scmidt    #
-#           Jakob Rørstes Mosumgaard #
-#           Mathias Rav              #
-######################################
+Authors:
+    Mads Fabricius Schmidt
+    Jakob Rørsted Mosumgaard
+    Mathias Rav
+'''
 
 ###########
 # Modules #
