@@ -8,18 +8,11 @@ Authors:
     Mathias Rav
 '''
 
-###########
-# Modules #
-###########
 from __future__ import unicode_literals
 
 import codecs
 import argparse
 
-
-#####################
-# Initial variables #
-#####################
 
 # Encoding is always utf8!
 ENCODING = 'utf8'
