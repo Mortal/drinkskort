@@ -169,7 +169,8 @@ def generatemixingcard(drinks, columns, use_alternatives):
         if alternative and use_alternatives:
             name = '%s (%s)' % (name, alternative)
 
-        color = '\\rowcolor{Gray}%\n' if drinknumber % 2 == 0 else ''
+        if drinknumber % 2 == 0:
+            yield '\\rowcolor{Gray}%'
 
         NEWLINE = r'\\'
 
@@ -192,7 +193,7 @@ def generatemixingcard(drinks, columns, use_alternatives):
 
         cells = ' & '.join(fields[key] for name, key in columns)
 
-        mixingcardline = color + cells + NEWLINE
+        mixingcardline = cells + NEWLINE
 
         yield mixingcardline
 
