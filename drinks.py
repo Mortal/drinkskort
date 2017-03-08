@@ -179,8 +179,6 @@ def generatemixingcard(drinks, columns, use_alternatives):
         color = '\\rowcolor{Gray}%\n' if drinknumber % 2 == 0 else ''
 
         NEWLINE = r'\\' + '\n'
-        # mixingcardformat = '{color}%s' + NEWLINE
-        mixingcardformat = ' & '.join('{%s}' % key for name, key in columns)
 
         ingredients = ', '.join(' '.join(part for part in spirit.split('-'))
                                 for spirit in currentingredients['spirit'])
@@ -191,13 +189,15 @@ def generatemixingcard(drinks, columns, use_alternatives):
 
         price = currentingredients['price'] + ' kr'
 
-        cells = mixingcardformat.format(
+        fields = dict(
             name=name,
             ingredients=ingredients,
             soda=soda,
             served=served,
             price=price,
         )
+
+        cells = ' & '.join(fields[key] for name, key in columns)
 
         mixingcardline = color + cells + NEWLINE
 
