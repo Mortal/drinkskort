@@ -171,7 +171,7 @@ def generatemixingcard(drinks, columns, use_alternatives):
 
         color = '\\rowcolor{Gray}%\n' if drinknumber % 2 == 0 else ''
 
-        NEWLINE = r'\\' + '\n'
+        NEWLINE = r'\\'
 
         ingredients = ', '.join(' '.join(part for part in spirit.split('-'))
                                 for spirit in currentingredients['spirit'])
