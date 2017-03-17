@@ -233,7 +233,8 @@ def makedrinks(filename, verbose, sortbarcards, alternative, columns):
 ######################################
 def main():
     parser = argparse.ArgumentParser(
-        description='Make barcards')
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
 
     parser.add_argument('filename')
     parser.add_argument('-v', '--verbose',
