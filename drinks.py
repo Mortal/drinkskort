@@ -238,13 +238,13 @@ def main():
     parser.add_argument('filename')
     parser.add_argument('-v', '--verbose',
                         action='store_true',
-                        help='Do you want verbose output?')
+                        help='Print unrecognized lines')
     parser.add_argument('-s', '--sortbarcards',
                         action='store_true',
-                        help='Do you want barcards sorted?')
+                        help='Sort drinks by price')
     parser.add_argument('-a', '--alternative',
                         action='store_true',
-                        help='Do you want alternative names on mixingcard?')
+                        help='Display alternative names in parentheses')
     parser.add_argument('-c', '--columns',
                         choices=sorted(columns_modes.keys()), default='new',
                         help='Order of columns in mixing card')
