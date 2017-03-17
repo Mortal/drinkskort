@@ -50,7 +50,7 @@ De forskellige options kan selvfølgelig kombineres på kryds og tværs.
 --------> Fjerner de midlertidige filer OG pdf-filerne.
 
 
-** En note om rækkefølgen af søljer
+** En note om rækkefølgen af søjler
 Traditionelt set har blandelisten være opskrevet som:
   < Navn - Sprut - Sodavand - Servering - Pris > .
 
