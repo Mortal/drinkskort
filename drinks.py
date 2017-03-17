@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 '''
-Script for handling drinks
+Generate barcard.tex and mixing.tex from given drinks list.
+Running this script directly is usually not necessary; run make instead.
+Usage is described in BRUGSANVISNING.txt (in Danish).
 
 Authors:
     Mads Fabricius Schmidt
@@ -236,7 +238,8 @@ def main():
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
 
-    parser.add_argument('filename')
+    parser.add_argument('filename',
+                        help='Text file containing drinks to display')
     parser.add_argument('-v', '--verbose',
                         action='store_true',
                         help='Print unrecognized lines')
