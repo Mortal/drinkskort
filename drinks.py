@@ -34,6 +34,12 @@ columns_modes = {
         ('Sprut', 'ingredients'),
         ('Sodavand', 'soda'),
     ],
+    'gratis': [
+        ('Navn', 'name'),
+        ('Servering', 'served'),
+        ('Sprut', 'ingredients'),
+        ('Sodavand', 'soda'),
+    ],
 }
 
 
