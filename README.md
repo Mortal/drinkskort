@@ -1,24 +1,3 @@
-TÅGEKAMMERET                                             Juli 2015
+# Repository flyttet til [tkweb/apps/drinks](https://github.com/TK-IT/web/tree/master/tkweb/apps/drinks)
 
-
-# SEKR TeX
-
-System til at generere drinkskort og blandelister.
-
-**Funktion:**
-Tager en inputfil (fx "drinks.txt") og omdanner til to pdf-filer.
-I "bar_drinks.pdf" findes drinkskortene og i "mixing_drinks.pdf"
-findes blandelisten.
-
-
-**Kræver:**
-* Python > 3.2 (eller 2.6)
-* XeTeX
-* pdfLaTeX
-
-
-**Anvendelse:**
-Se BRUGSANVISNING.txt
-
-
-/ TK-IT
+Fra februar 2019 er drinkskort en del af TKs hjemmeside og kan tilgås af SEKR på https://tket.dk/drinks.
