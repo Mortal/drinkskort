@@ -166,3 +166,9 @@ $ 15
 -- Curacao
 ! drinksglas
 $ 15
+
+= Verdens bedste sommerdrink
+- 2 cl - Gammel Dansk
+-- Tonic
+! drinksglas
+$ 42
