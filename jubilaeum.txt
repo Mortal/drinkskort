@@ -1,0 +1,140 @@
+# Standardudvalget af drinks
+
+= Alabama S.
+- 2 cl - Southern C
+- 2 cl - Vodka
+- Grenadine
+-- Appelsinjuice
+! drinksglas
+$ 25
+
+= Bear Grills
+- 2 cl - Pisang A
+-- Appelsinjuice
+! drinksglas
+$ 15
+
+= Champagnebrus
+- 2 cl - Cuba caramel
+- 2 cl - Lime cordial
+-- Lemon
+! drinksglas
+$ 15
+
+= Chuck Norris
+- 2 cl - Gammel Dansk
+- 2 cl - Tequila
+- 2 cl - Gin
+- 2 cl - Lime cordial
+! drinksglas
+$ 30
+
+= Dark and stormy
+- 4 cl - Mørk rom
+-- Ginger beer
+-- Frisk lime
+! drinksglas
+$ 42
+
+= FUAN Love
+- 2 cl - Southern C
+- 2 cl - Hindbærvodka
+- Lidt grenadine
+- Citronskive
+-- Sprite
+! drinksglas
+$ 25
+
+= Gin Hass
+- 4 cl - Gin
+- 2 cl - Mango
+-- Lemon
+-- Frisk lime
+! drinksglas
+$ 42
+
+# = Gin og Tonic
+# - 2 cl - Gin
+# -- Tonic
+# ! drinksglas
+# $ 42
+
+= Jim\&Lennon
+- 2 cl - Gin
+-- Lemon
+! drinksglas
+$ 15
+
+= Karamælk
+- 2 cl - Cuba Caramel
+- 2 cl - Kahlua
+-- Mælk
+! drinksglas
+$ 25
+
+= Lille FU
+- 2 cl - Gin
+- 2 cl - Vodka
+- 2 cl - Rom
+- 2 cl - Tequila
+- 2 cl - Pisang A
+- 2 cl - Lime cordial
+-- Sprite
+! fadølsglas
+$ 60
+
+= Long Island
+- 2 cl - Gin
+- 2 cl - Vodka
+- 2 cl - Rom
+- 2 cl - Tequila
+-- Cola
+-- Lemon
+! fadølsglas
+$ 45
+
+= Moscow Mule
+- 2 cl - Vodka
+-- Ginger beer
+-- Frisk lime
+! drinksglas
+$ 42
+
+# = Rom og Cola
+# - 2 cl - Rom
+# -- Cola
+# ! drinksglas
+# $ 42
+
+= Styx
+- 2 cl - Pisang A
+- 2 cl - Lime cordial
+-- Sprite
+! drinksglas
+$ 15
+
+= Tequila S.
+- 2 cl - Tequila
+-- Appensinjuice
+-- Grenadine
+! drinksglas
+$ 15
+
+= Verdens bedste sommerdrink
+- 2 cl - Gammel Dansk
+-- Tonic
+! drinksglas
+$ 42
+
+# = Vodka Juice
+# - 2 cl - Juice
+# -- Vodka
+# ! drinksglas
+# $ 42
+
+= White R.
+- 2 cl - Vodka
+- 2 cl - Kahlua
+-- Mælk
+! drinksglas
+$ 25
