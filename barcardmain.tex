@@ -25,7 +25,9 @@
 % Magic!
 \def\drik#1\til#2\med#3\serveret#4\par{%
   \setbox0=\vbox to\Hoehe{\hsize=\Breite
-  \line{\Name#1\hfill\Preis#2kr.}
+  \line{\Name#1\hfill%
+  %\Preis#2kr.
+  }
   \bigskip
   \let\og\cr
   \line{\vtop{\halign{\hbox to 2cm{\Dinge\hfill\strut##\ }&\Dinge##\hfill\cr#3}}
